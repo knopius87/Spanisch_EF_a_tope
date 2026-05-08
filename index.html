@@ -1,0 +1,2003 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>a_tope — Español</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sol:     #FFB703;
+  --naranja: #FF7D00;
+  --noche:   #05070F;
+  --noche2:  #0D1220;
+  --noche3:  #151D30;
+  --noche4:  #1E2740;
+  --acento:  #FFB703;
+  --acento2: #FF7D00;
+  --blanco:  #FFFFFF;
+  --gris:    #8A97B4;
+  --gris2:   #5C6880;
+  --borde:   rgba(255,255,255,0.08);
+  --borde2:  rgba(255,183,3,0.25);
+  --sombra:  0 4px 24px rgba(0,0,0,0.4);
+  --r:14px; --r2:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:var(--noche);color:var(--blanco);min-height:100vh;overflow-x:hidden;}
+h1,h2,h3,.disp{font-family:'Playfair Display',serif;}
+
+/* SCREENS */
+.screen{display:none;min-height:100vh;}
+.screen.active{display:flex;flex-direction:column;}
+
+/* ─── CITYSCAPE SVG SKYLINES ─────────────────── */
+/* Inline SVG skylines for Madrid, Lima, Buenos Aires, Mexico City, Barcelona */
+.city-bg {
+  position:absolute;bottom:0;left:0;right:0;
+  pointer-events:none;z-index:0;
+  height:160px;
+  overflow:hidden;
+}
+.city-bg svg { width:100%; height:100%; }
+
+/* ─── WELCOME ─────────────────────────── */
+#screen-welcome{
+  background: var(--noche);
+  align-items:center;justify-content:center;text-align:center;padding:2rem;
+  position:relative;overflow:hidden;
+}
+/* Stars */
+#screen-welcome::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 8%,  rgba(255,255,255,.5) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 40% 20%, rgba(255,183,3,.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 12%, rgba(255,255,255,.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 5%,  rgba(255,255,255,.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 88% 18%, rgba(255,255,255,.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 30%, rgba(255,255,255,.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 50% 6%,  rgba(255,255,255,.4) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 92% 25%, rgba(255,183,3,.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 33% 3%,  rgba(255,255,255,.5) 0%, transparent 100%);
+  pointer-events:none;
+}
+/* Moon glow */
+#screen-welcome::after{
+  content:'';position:absolute;
+  width:120px;height:120px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(255,183,3,.18) 0%, transparent 70%);
+  top:6%;right:8%;
+  pointer-events:none;
+}
+
+.w-inner{position:relative;z-index:1;max-width:400px;}
+.moon-icon{font-size:3rem;margin-bottom:.5rem;display:block;filter:drop-shadow(0 0 12px rgba(255,183,3,.5));}
+.w-inner h1{font-size:clamp(3rem,10vw,4.5rem);font-style:italic;color:var(--sol);
+  text-shadow:0 0 40px rgba(255,183,3,.4),0 3px 0 rgba(0,0,0,.5);line-height:1;}
+.w-inner .tagline{color:rgba(255,255,255,.75);font-size:1rem;margin:.6rem 0 2rem;line-height:1.7;}
+.w-inner .city-label{font-size:.72rem;color:rgba(255,183,3,.7);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.3rem;font-weight:700;}
+
+.nic-wrap{display:flex;flex-direction:column;gap:.6rem;margin-bottom:.75rem;}
+.nic-wrap label{color:rgba(255,255,255,.7);font-size:.85rem;text-align:left;font-weight:600;}
+.nic-wrap input{padding:.85rem 1.1rem;border-radius:var(--r);border:2px solid var(--borde2);background:rgba(255,255,255,.06);color:#fff;font-family:'Nunito',sans-serif;font-size:1rem;outline:none;transition:border-color .2s;}
+.nic-wrap input::placeholder{color:rgba(255,255,255,.3);}
+.nic-wrap input:focus{border-color:var(--sol);background:rgba(255,183,3,.06);}
+.btn-p{background:var(--sol);color:var(--noche);border:none;border-radius:var(--r);padding:.9rem 2rem;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 24px rgba(255,183,3,.4);}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 6px 32px rgba(255,183,3,.55);}
+.btn-p:active{transform:none;}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.45);border:none;font-size:.82rem;cursor:pointer;text-decoration:underline;padding:.4rem;margin-top:.4rem;}
+.priv{font-size:.72rem;color:rgba(255,255,255,.3);margin-top:1.2rem;line-height:1.7;}
+
+/* ─── TOP BAR ─────────────────────────── */
+.topbar{background:var(--noche2);padding:.85rem 1.1rem;display:flex;align-items:center;justify-content:space-between;color:#fff;position:sticky;top:0;z-index:100;border-bottom:1px solid var(--borde);}
+.topbar .logo{font-family:'Playfair Display',serif;font-style:italic;font-size:1.5rem;color:var(--sol);}
+.pills{display:flex;gap:.6rem;}
+.pill{background:rgba(255,183,3,.12);border:1px solid rgba(255,183,3,.2);border-radius:20px;padding:.22rem .7rem;font-size:.82rem;font-weight:700;display:flex;align-items:center;gap:.3rem;color:var(--sol);}
+
+/* ─── HOME ────────────────────────────── */
+#screen-home{background:var(--noche);padding-bottom:5rem;}
+.home-body{padding:1.1rem;}
+.hello h2{font-size:1.55rem;line-height:1.2;}
+.hello p{color:var(--gris);font-size:.88rem;margin-top:.2rem;}
+
+/* City badge row */
+.city-row{display:none;}
+.city-pill{font-size:.7rem;background:rgba(255,183,3,.1);border:1px solid rgba(255,183,3,.2);border-radius:20px;padding:.2rem .65rem;color:rgba(255,183,3,.8);font-weight:700;}
+
+/* Streak card */
+.streak-card{display:none;}
+/* ── HERO CARD (replaces streak + goal) ── */
+.hero-card{
+  margin:.75rem 0 1rem;
+  background:linear-gradient(135deg,var(--noche3) 0%,var(--noche4) 100%);
+  border:1.5px solid rgba(255,183,3,.22);
+  border-radius:var(--r2);padding:1.1rem 1.2rem;
+  position:relative;overflow:hidden;
+}
+.hero-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 90% 50%,rgba(255,125,0,.12) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.75rem;}
+.hero-streak{display:flex;align-items:baseline;gap:.4rem;}
+.hero-streak-num{font-family:'Playfair Display',serif;font-size:2.6rem;line-height:1;color:var(--sol);}
+.hero-streak-unit{font-size:.82rem;color:rgba(255,255,255,.6);}
+.hero-streak-label{font-size:.75rem;color:rgba(255,255,255,.45);margin-top:.15rem;}
+.hero-fire{font-size:2.4rem;opacity:.85;margin-top:-.2rem;line-height:1;}
+.hero-goal-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:.35rem;}
+.hero-goal-text{font-size:.78rem;color:rgba(255,255,255,.55);font-weight:600;}
+.hero-goal-count{font-size:.78rem;color:var(--sol);font-weight:800;}
+.hero-goal-bar{height:7px;background:rgba(255,255,255,.09);border-radius:4px;overflow:hidden;}
+.hero-goal-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--naranja),var(--sol));transition:width .6s cubic-bezier(.34,1.56,.64,1);}
+.hero-goal-msg{font-size:.73rem;color:rgba(255,255,255,.35);margin-top:.3rem;}
+
+.sec-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gris2);margin-bottom:.65rem;}
+
+/* Unit cards */
+.ugrid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:1.3rem;}
+.ucard{background:var(--noche3);border-radius:var(--r2);padding:.95rem;cursor:pointer;border:1.5px solid var(--borde);transition:transform .15s,box-shadow .15s,border-color .15s;box-shadow:var(--sombra);}
+.ucard:hover{transform:translateY(-2px);border-color:rgba(255,183,3,.3);box-shadow:0 8px 30px rgba(0,0,0,.4);}
+.ucard.done{border-color:rgba(255,183,3,.5);background:rgba(255,183,3,.06);}
+.ucard.going{border-color:rgba(255,125,0,.4);}
+.ucard .ue{font-size:1.7rem;margin-bottom:.3rem;display:block;}
+.ucard .un{font-size:.72rem;font-weight:700;color:var(--gris2);text-transform:uppercase;}
+.ucard .ut{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.25;margin:.2rem 0;color:var(--blanco);}
+.pbar{height:4px;background:rgba(255,255,255,.08);border-radius:2px;margin-top:.5rem;overflow:hidden;}
+.pfill{height:100%;border-radius:2px;transition:width .5s;}
+
+/* Quick cards */
+.qgrid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:1.3rem;}
+.qcard{background:var(--noche3);border-radius:var(--r2);padding:.95rem;cursor:pointer;border:1.5px solid var(--borde);transition:all .15s;}
+.qcard:hover{border-color:rgba(255,183,3,.35);transform:translateY(-1px);background:var(--noche4);}
+.qcard .qi{font-size:1.4rem;margin-bottom:.35rem;}
+.qcard .qn{font-weight:700;font-size:.88rem;color:var(--blanco);}
+.qcard .qs{font-size:.73rem;color:var(--gris);}
+
+/* Bottom nav */
+.botnav{position:fixed;bottom:0;left:0;right:0;background:var(--noche2);border-top:1px solid var(--borde);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom);}
+.nbtn{flex:1;display:flex;flex-direction:column;align-items:center;padding:.55rem .4rem;cursor:pointer;border:none;background:none;color:var(--gris2);font-size:.67rem;gap:.18rem;transition:color .15s;}
+.nbtn svg{width:21px;height:21px;}
+.nbtn.active{color:var(--sol);}
+
+/* ─── UNITS SCREEN ─────────────────────── */
+#screen-units{background:var(--noche);padding-bottom:5rem;}
+.ulist-item{background:var(--noche3);border-radius:var(--r2);padding:1rem;margin-bottom:.65rem;display:flex;align-items:center;gap:.9rem;cursor:pointer;border:1.5px solid var(--borde);transition:border-color .15s;}
+.ulist-item:hover{border-color:rgba(255,183,3,.3);}
+.ulist-item .ulem{font-size:2rem;flex-shrink:0;}
+.ulist-item .ulinfo{flex:1;}
+.ulist-item .uln{font-weight:700;font-size:.93rem;}
+.ulist-item .ult{font-size:.78rem;color:var(--gris);}
+
+/* ─── EXERCISE ────────────────────────── */
+#screen-exercise{background:var(--noche);}
+.exhead{background:var(--noche2);border-bottom:1px solid var(--borde);padding:.9rem 1.1rem;display:flex;align-items:center;gap:.9rem;}
+.xbtn{background:rgba(255,255,255,.08);border:none;color:var(--gris);border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:1rem;}
+.expbar{flex:1;height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;}
+.expfill{height:100%;background:linear-gradient(90deg,var(--naranja),var(--sol));border-radius:4px;transition:width .4s;}
+.xpind{font-size:.78rem;color:var(--sol);flex-shrink:0;font-weight:700;}
+
+.exbody{flex:1;padding:1.4rem 1.1rem;display:flex;flex-direction:column;gap:1.1rem;overflow-y:auto;}
+.ex-tag{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gris2);}
+.ex-q{font-family:'Playfair Display',serif;font-size:1.65rem;line-height:1.4;color:var(--blanco);font-weight:700;}
+.ex-hint{font-size:.83rem;color:var(--gris);font-style:italic;}
+
+/* Choices */
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;}
+.cbtn{background:var(--noche3);border:2px solid var(--borde);border-radius:var(--r);padding:0 .85rem;font-family:'Nunito',sans-serif;font-size:1rem;cursor:pointer;transition:all .15s;text-align:center;line-height:1.35;font-weight:700;color:var(--blanco);min-height:52px;display:flex;align-items:center;justify-content:center;}
+.cbtn:hover:not(:disabled){border-color:rgba(255,183,3,.4);background:var(--noche4);}
+.cbtn.ok{border-color:#4ade80!important;background:rgba(74,222,128,.1)!important;color:#4ade80;}
+.cbtn.bad{border-color:#f87171!important;background:rgba(248,113,113,.1)!important;color:#f87171;}
+.cbtn:disabled{cursor:not-allowed;}
+
+/* Fill */
+.finp{width:100%;padding:.95rem 1.1rem;border:1.5px solid var(--borde);border-radius:var(--r);font-family:'Nunito',sans-serif;font-size:1.05rem;background:var(--noche3);color:var(--blanco);outline:none;transition:border-color .2s;font-weight:600;}
+.finp:focus{border-color:rgba(255,183,3,.5);}
+.finp.ok{border-color:#4ade80;background:rgba(74,222,128,.08);}
+.finp.bad{border-color:#f87171;background:rgba(248,113,113,.08);}
+.schars{display:flex;flex-wrap:wrap;gap:.35rem;}
+.sbtn{background:var(--noche3);border:1px solid var(--borde);border-radius:8px;padding:.28rem .65rem;font-size:.92rem;cursor:pointer;transition:all .1s;font-weight:600;color:var(--blanco);}
+.sbtn:hover{background:rgba(255,183,3,.2);border-color:rgba(255,183,3,.4);color:var(--sol);}
+
+/* Feedback */
+.fbpanel{border-radius:var(--r);padding:.95rem 1.1rem;display:none;}
+.fbpanel.ok{background:rgba(74,222,128,.08);border:1.5px solid rgba(74,222,128,.3);}
+.fbpanel.bad{background:rgba(248,113,113,.08);border:1.5px solid rgba(248,113,113,.3);}
+.fbpanel.show{display:block;}
+.fbpanel h4{font-weight:700;margin-bottom:.2rem;font-size:.95rem;}
+.fbpanel.ok h4{color:#4ade80;}.fbpanel.bad h4{color:#f87171;}
+.fbpanel p{font-size:.87rem;line-height:1.55;color:rgba(255,255,255,.8);}
+
+/* AI Dialog panel */
+.dialog-box{background:var(--noche3);border-radius:var(--r2);border:1.5px solid rgba(255,183,3,.2);padding:1.1rem;}
+.dialog-box .db-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--sol);margin-bottom:.75rem;}
+.dialog-msg{display:flex;gap:.6rem;margin-bottom:.65rem;align-items:flex-start;}
+.dialog-msg.es .dm-bubble{background:linear-gradient(135deg,rgba(255,125,0,.3),rgba(255,183,3,.2));border:1px solid rgba(255,183,3,.25);color:#fff;border-radius:18px 18px 18px 4px;}
+.dialog-msg.de .dm-bubble{background:rgba(255,255,255,.06);border-radius:18px 18px 4px 18px;margin-left:auto;color:rgba(255,255,255,.8);}
+.dm-bubble{padding:.6rem .9rem;font-size:.9rem;line-height:1.5;max-width:85%;}
+.dm-speaker{font-size:.65rem;color:var(--gris2);margin-bottom:.15rem;font-weight:700;}
+.dialog-task{background:rgba(255,183,3,.1);border-radius:var(--r);padding:.85rem;border:1.5px solid rgba(255,183,3,.3);}
+.dialog-task p{font-size:.88rem;font-weight:600;color:var(--blanco);}
+.dtinp{width:100%;margin-top:.65rem;padding:.8rem 1rem;border:1.5px solid var(--borde);border-radius:var(--r);font-family:'Nunito',sans-serif;font-size:.95rem;background:var(--noche2);color:#fff;outline:none;transition:border-color .2s;}
+.dtinp:focus{border-color:rgba(255,183,3,.5);}
+.ai-chip{display:inline-flex;align-items:center;gap:.4rem;background:linear-gradient(90deg,rgba(255,125,0,.8),rgba(255,183,3,.8));color:var(--noche);border-radius:20px;padding:.22rem .75rem;font-size:.72rem;font-weight:800;margin-bottom:.6rem;}
+
+.exfoot{padding:1rem 1.1rem;padding-bottom:calc(1rem + env(safe-area-inset-bottom));background:var(--noche);}
+.btnchk{width:100%;padding:1.05rem;border-radius:var(--r);font-family:'Nunito',sans-serif;font-size:1.05rem;font-weight:800;cursor:pointer;border:none;transition:all .15s;}
+.btnchk.primary{background:linear-gradient(135deg,var(--naranja),var(--sol));color:var(--noche);}
+.btnchk.primary:disabled{background:var(--noche3);color:var(--gris2);cursor:not-allowed;}
+.btnchk.primary:not(:disabled):hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(255,183,3,.3);}
+.btnchk.sunny{background:var(--noche3);border:1.5px solid rgba(255,183,3,.4);color:var(--sol);display:none;}
+.btnchk.sunny:hover{transform:translateY(-2px);background:rgba(255,183,3,.1);}
+
+/* ─── RESULT ────────────────────────────── */
+#screen-result{align-items:center;justify-content:center;text-align:center;padding:2rem;background:var(--noche);}
+.res-circle{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--naranja),var(--sol));display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;font-size:3rem;box-shadow:0 6px 40px rgba(255,183,3,.35);}
+.res-xp{font-family:'Playfair Display',serif;font-size:2.8rem;color:var(--sol);}
+.res-sub{color:var(--gris);margin-bottom:1.8rem;}
+.res-badges{display:flex;justify-content:center;gap:.9rem;margin-bottom:1.8rem;}
+.rbadge{background:var(--noche3);border:1px solid var(--borde);border-radius:var(--r);padding:.7rem .9rem;text-align:center;min-width:76px;}
+.rbadge .ri{font-size:1.4rem;}
+.rbadge .rv{font-weight:800;font-size:.93rem;color:var(--blanco);}
+.rbadge .rl{font-size:.68rem;color:var(--gris);}
+.res-btns{display:flex;flex-direction:column;gap:.65rem;width:100%;max-width:300px;}
+
+/* ─── MODAL ─────────────────────────────── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:none;align-items:flex-end;justify-content:center;}
+.overlay.open{display:flex;}
+.sheet{background:var(--noche2);border-radius:24px 24px 0 0;border-top:1px solid var(--borde);padding:1.4rem 1.1rem;width:100%;max-width:480px;max-height:80vh;overflow-y:auto;}
+.sheet h3{font-family:'Playfair Display',serif;font-size:1.35rem;margin-bottom:.9rem;color:var(--blanco);}
+.tlist{display:flex;flex-direction:column;gap:.55rem;margin-bottom:.9rem;}
+.titem{background:var(--noche3);border:1.5px solid var(--borde);border-radius:var(--r);padding:.8rem .95rem;cursor:pointer;display:flex;align-items:center;gap:.7rem;transition:all .15s;}
+.titem:hover{border-color:rgba(255,183,3,.4);background:var(--noche4);}
+.titem .ti{font-size:1.2rem;flex-shrink:0;}
+.titem .tn{font-weight:700;font-size:.92rem;color:var(--blanco);}
+.titem .td{font-size:.75rem;color:var(--gris);}
+.cls-btn{width:100%;padding:.85rem;border:1.5px solid var(--borde);border-radius:var(--r);background:transparent;font-family:'Nunito',sans-serif;font-size:.93rem;cursor:pointer;font-weight:600;color:var(--gris);}
+
+/* ─── PROFILE ────────────────────────────── */
+#screen-profile{background:var(--noche);padding-bottom:5rem;}
+.prof-hero{background:var(--noche2);border-bottom:1px solid var(--borde);padding:1.8rem 1.1rem 1.4rem;text-align:center;}
+.pav{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--naranja),var(--sol));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--noche);margin:0 auto .7rem;}
+.pname{font-family:'Playfair Display',serif;font-size:1.45rem;}
+.plevel{color:var(--gris);font-size:.88rem;}
+.pstats{display:grid;grid-template-columns:repeat(3,1fr);background:var(--noche3);border-bottom:1px solid var(--borde);}
+.pstat{padding:.9rem .4rem;text-align:center;border-right:1px solid var(--borde);}
+.pstat:last-child{border-right:none;}
+.pstat .pv{font-family:'Playfair Display',serif;font-size:1.55rem;color:var(--sol);}
+.pstat .pl{font-size:.68rem;color:var(--gris);}
+.badgsec{padding:1.1rem;}
+.bgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem;}
+.bitem{text-align:center;padding:.7rem .2rem;background:var(--noche3);border:1px solid var(--borde);border-radius:var(--r);}
+.bitem .bi{font-size:1.7rem;}
+.bitem .bn{font-size:.62rem;color:var(--gris);margin-top:.2rem;}
+.bitem.locked{opacity:.25;filter:grayscale(1);}
+
+/* Loading dots */
+.dots-row{display:flex;align-items:center;gap:.65rem;color:var(--gris);font-size:.88rem;}
+.dots span{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gris);animation:bop 1.2s infinite;}
+.dots span:nth-child(2){animation-delay:.2s;}
+.dots span:nth-child(3){animation-delay:.4s;}
+@keyframes bop{0%,80%,100%{transform:translateY(0);}40%{transform:translateY(-6px);}}
+
+@media(min-width:480px){.ugrid,.qgrid{grid-template-columns:repeat(3,1fr);}}
+
+/* ── ONBOARDING ── */
+#screen-onboard{background:var(--noche);align-items:center;justify-content:center;padding:2rem;position:relative;overflow:hidden;}
+.ob-slides{max-width:380px;width:100%;text-align:center;}
+.ob-slide{display:none;flex-direction:column;align-items:center;gap:1rem;}
+.ob-slide.active{display:flex;}
+.ob-icon{font-size:4rem;margin-bottom:.5rem;filter:drop-shadow(0 0 20px rgba(255,183,3,.4));}
+.ob-title{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--sol);line-height:1.2;}
+.ob-text{color:rgba(255,255,255,.7);font-size:.95rem;line-height:1.7;max-width:320px;}
+.ob-dots{display:flex;gap:.5rem;justify-content:center;margin:.5rem 0;}
+.ob-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);transition:background .3s;}
+.ob-dot.active{background:var(--sol);}
+
+/* ── TAGESZIEL ── */
+.goal-card{background:var(--noche3);border:1.5px solid var(--borde);border-radius:var(--r2);padding:.85rem 1.1rem;margin-bottom:1rem;}
+.goal-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;}
+.goal-label{font-size:.82rem;color:var(--gris);font-weight:600;}
+.goal-count{font-size:.82rem;font-weight:800;color:var(--sol);}
+.goal-bar{height:10px;background:rgba(255,255,255,.08);border-radius:5px;overflow:hidden;}
+.goal-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--naranja),var(--sol));transition:width .6s cubic-bezier(.34,1.56,.64,1);}
+.goal-done{border-color:rgba(255,183,3,.5);background:rgba(255,183,3,.06);}
+.goal-msg{font-size:.78rem;color:rgba(255,255,255,.55);margin-top:.3rem;}
+
+/* ── BADGE TOAST ── */
+#badge-toast{
+  position:fixed;top:1rem;left:50%;transform:translateX(-50%) translateY(-120px);
+  background:linear-gradient(135deg,rgba(255,125,0,.95),rgba(255,183,3,.95));
+  color:var(--noche);border-radius:var(--r2);padding:.75rem 1.25rem;
+  display:flex;align-items:center;gap:.75rem;
+  font-weight:800;font-size:.95rem;
+  box-shadow:0 8px 32px rgba(255,183,3,.4);
+  z-index:999;transition:transform .4s cubic-bezier(.34,1.56,.64,1);
+  pointer-events:none;max-width:320px;text-align:left;
+}
+#badge-toast.show{transform:translateX(-50%) translateY(0);}
+#badge-toast .bt-icon{font-size:2rem;flex-shrink:0;}
+#badge-toast .bt-title{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;opacity:.75;margin-bottom:.1rem;}
+
+/* ── CONFETTI ── */
+#confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:998;display:none;}
+
+/* ── FEEDBACK MASCOT ── */
+.mascot-row{display:flex;align-items:center;gap:.75rem;}
+.mascot{font-size:2rem;flex-shrink:0;transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
+.mascot.bounce{animation:mbounce .4s cubic-bezier(.34,1.56,.64,1);}
+@keyframes mbounce{0%{transform:scale(1);}50%{transform:scale(1.35);}100%{transform:scale(1);}}
+.mascot-speech{flex:1;}
+
+/* ── QUICK SESSION (3 Fragen) ── */
+.quick-session-tag{background:rgba(255,183,3,.15);border:1px solid rgba(255,183,3,.3);border-radius:20px;padding:.15rem .6rem;font-size:.7rem;font-weight:700;color:var(--sol);margin-left:.4rem;}
+
+/* ── WORD OF DAY ── */
+.wotd-card{background:var(--noche3);border:1.5px solid rgba(255,255,255,.07);border-left:3px solid var(--sol);border-radius:0 var(--r2) var(--r2) 0;padding:.9rem 1.1rem;margin-bottom:.9rem;cursor:pointer;display:flex;align-items:center;gap:.9rem;transition:background .15s;}
+.wotd-card:hover{background:var(--noche4);}
+.wotd-card-inner{flex:1;min-width:0;}
+.wotd-label{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,183,3,.65);margin-bottom:.25rem;}
+.wotd-es{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--sol);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.wotd-de{font-size:.82rem;color:rgba(255,255,255,.5);margin-top:.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.wotd-ex{font-size:.76rem;font-style:italic;color:rgba(255,255,255,.3);margin-top:.25rem;}
+.wotd-arrow{font-size:1.3rem;color:rgba(255,183,3,.35);flex-shrink:0;}
+
+/* ── FIRST EXERCISE EASY ── */
+.ex-easy-tag{background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.25);border-radius:12px;padding:.2rem .65rem;font-size:.7rem;font-weight:700;color:#4ade80;}
+
+</style>
+</head>
+<body>
+
+<!-- WELCOME -->
+<div id="screen-welcome" class="screen active">
+  <!-- Skyline SVG: Madrid + Lima silhouettes -->
+  <div class="city-bg">
+    <svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
+      <!-- Ground -->
+      <rect x="0" y="140" width="400" height="20" fill="#0D1220"/>
+      <!-- Madrid: Palacio Real dome suggestion -->
+      <rect x="2" y="110" width="14" height="30" fill="#0D1220"/>
+      <rect x="18" y="95" width="10" height="45" fill="#0D1220"/>
+      <polygon points="23,88 28,95 18,95" fill="#0D1220"/>
+      <rect x="30" y="80" width="18" height="60" fill="#0D1220"/>
+      <rect x="50" y="100" width="8" height="40" fill="#0D1220"/>
+      <rect x="60" y="70" width="22" height="70" fill="#0D1220"/>
+      <!-- windows lit orange -->
+      <rect x="63" y="75" width="4" height="4" fill="rgba(255,183,3,.35)"/>
+      <rect x="70" y="75" width="4" height="4" fill="rgba(255,183,3,.25)"/>
+      <rect x="63" y="84" width="4" height="4" fill="rgba(255,125,0,.3)"/>
+      <rect x="84" y="105" width="12" height="35" fill="#0D1220"/>
+      <rect x="98" y="88" width="16" height="52" fill="#0D1220"/>
+      <rect x="101" y="93" width="3" height="3" fill="rgba(255,183,3,.3)"/>
+      <rect x="107" y="93" width="3" height="3" fill="rgba(255,183,3,.25)"/>
+      <!-- Church tower -->
+      <rect x="116" y="60" width="12" height="80" fill="#0D1220"/>
+      <polygon points="122,52 128,60 116,60" fill="#0D1220"/>
+      <rect x="120" y="56" width="4" height="8" fill="rgba(255,183,3,.5)"/>
+      <!-- Mid city -->
+      <rect x="130" y="95" width="20" height="45" fill="#0D1220"/>
+      <rect x="133" y="100" width="4" height="4" fill="rgba(255,183,3,.2)"/>
+      <rect x="140" y="100" width="4" height="4" fill="rgba(255,125,0,.25)"/>
+      <rect x="152" y="108" width="16" height="32" fill="#0D1220"/>
+      <rect x="170" y="75" width="24" height="65" fill="#0D1220"/>
+      <rect x="173" y="80" width="5" height="5" fill="rgba(255,183,3,.3)"/>
+      <rect x="182" y="80" width="5" height="5" fill="rgba(255,183,3,.2)"/>
+      <rect x="173" y="90" width="5" height="5" fill="rgba(255,125,0,.25)"/>
+      <!-- Barcelona: Sagrada Família silhouette (spires) -->
+      <rect x="196" y="90" width="8" height="50" fill="#0D1220"/>
+      <polygon points="200,82 204,90 196,90" fill="#0D1220"/>
+      <rect x="207" y="55" width="7" height="85" fill="#0D1220"/>
+      <polygon points="210.5,46 214,55 207,55" fill="#0D1220"/>
+      <rect x="217" y="65" width="7" height="75" fill="#0D1220"/>
+      <polygon points="220.5,57 224,65 217,65" fill="#0D1220"/>
+      <rect x="227" y="78" width="8" height="62" fill="#0D1220"/>
+      <polygon points="231,70 235,78 227,78" fill="#0D1220"/>
+      <!-- Lima / Buenos Aires: wider flat buildings -->
+      <rect x="238" y="98" width="18" height="42" fill="#0D1220"/>
+      <rect x="241" y="103" width="4" height="4" fill="rgba(255,183,3,.25)"/>
+      <rect x="248" y="103" width="4" height="4" fill="rgba(255,125,0,.2)"/>
+      <rect x="258" y="82" width="26" height="58" fill="#0D1220"/>
+      <rect x="261" y="87" width="5" height="5" fill="rgba(255,183,3,.3)"/>
+      <rect x="270" y="87" width="5" height="5" fill="rgba(255,183,3,.2)"/>
+      <rect x="261" y="97" width="5" height="5" fill="rgba(255,125,0,.25)"/>
+      <!-- Mexico City: Aztec-inspired stepped building -->
+      <rect x="286" y="115" width="30" height="25" fill="#0D1220"/>
+      <rect x="290" y="103" width="22" height="12" fill="#0D1220"/>
+      <rect x="294" y="93" width="14" height="10" fill="#0D1220"/>
+      <rect x="298" y="85" width="6" height="8" fill="#0D1220"/>
+      <!-- Right city continuation -->
+      <rect x="318" y="90" width="18" height="50" fill="#0D1220"/>
+      <rect x="321" y="95" width="4" height="4" fill="rgba(255,183,3,.25)"/>
+      <rect x="338" y="100" width="14" height="40" fill="#0D1220"/>
+      <rect x="354" y="72" width="20" height="68" fill="#0D1220"/>
+      <rect x="357" y="78" width="5" height="5" fill="rgba(255,183,3,.3)"/>
+      <rect x="365" y="78" width="5" height="5" fill="rgba(255,183,3,.2)"/>
+      <rect x="376" y="88" width="24" height="52" fill="#0D1220"/>
+      <!-- Stars above skyline -->
+      <circle cx="45" cy="40" r="1" fill="rgba(255,183,3,.5)"/>
+      <circle cx="150" cy="25" r="1.2" fill="rgba(255,255,255,.5)"/>
+      <circle cx="240" cy="35" r="1" fill="rgba(255,183,3,.4)"/>
+      <circle cx="330" cy="20" r="1.2" fill="rgba(255,255,255,.4)"/>
+      <circle cx="380" cy="45" r="1" fill="rgba(255,183,3,.35)"/>
+    </svg>
+  </div>
+
+  <div class="w-inner">
+    <span class="moon-icon">🌙</span>
+    <div class="city-label">Madrid · Lima · Barcelona · Buenos Aires · México</div>
+    <h1>a_tope</h1>
+    <p class="tagline">Spanisch für <em>a_tope nueva edición</em> —<br>täglich ein bisschen üben.</p>
+    <div class="nic-wrap">
+      <label>Wie möchtest du heißen?</label>
+      <input id="nic" type="text" placeholder="Dein Spitzname…" maxlength="20" />
+    </div>
+    <button class="btn-p" onclick="startApp()">¡Vamos! →</button><br>
+    <button class="btn-ghost" onclick="startApp()">Ohne Namen weitermachen</button>
+    <p class="priv">🔒 Kein Konto · Keine E-Mail · Alle Daten nur lokal auf diesem Gerät</p>
+  </div>
+</div>
+
+<!-- ONBOARDING -->
+<div id="screen-onboard" class="screen">
+  <div class="ob-slides">
+    <div class="ob-slide active" id="ob0">
+      <span class="ob-icon">🌙</span>
+      <h2 class="ob-title">¡Bienvenido/a!</h2>
+      <p class="ob-text">Diese App begleitet dich durch <em>a_tope nueva edición</em> — täglich 5 Minuten reichen, um Spanisch wirklich zu festigen.</p>
+    </div>
+    <div class="ob-slide" id="ob1">
+      <span class="ob-icon">🎯</span>
+      <h2 class="ob-title">So funktioniert's</h2>
+      <p class="ob-text">Wähle eine Unidad oder ein Thema. Die App merkt sich, was du noch nicht kannst — und fragt dich genau das öfter.</p>
+    </div>
+    <div class="ob-slide" id="ob2">
+      <span class="ob-icon">🔥</span>
+      <h2 class="ob-title">Streak &amp; Tagesziel</h2>
+      <p class="ob-text">Übe jeden Tag — auch nur 3 Fragen. Dein Streak wächst, Abzeichen warten. Kein Konto, keine Daten, alles bleibt auf deinem Gerät.</p>
+    </div>
+    <div class="ob-dots">
+      <div class="ob-dot active" id="dot0"></div>
+      <div class="ob-dot" id="dot1"></div>
+      <div class="ob-dot" id="dot2"></div>
+    </div>
+    <button class="btn-p" id="ob-btn" onclick="obNext()" style="width:100%;margin-top:.5rem">Weiter →</button>
+  </div>
+</div>
+
+<!-- HOME -->
+<div id="screen-home" class="screen">
+  <div class="topbar">
+    <span class="logo">a_tope</span>
+    <div class="pills">
+      <div class="pill">🔥<span id="h-str">0</span></div>
+      <div class="pill">⚡<span id="h-xp">0</span> XP</div>
+    </div>
+  </div>
+  <div class="home-body">
+    <div class="hello"><h2>¡Hola, <span id="h-name">…</span>!</h2></div>
+    <!-- HERO: Streak + Goal combined -->
+    <div class="hero-card" id="hero-card">
+      <div class="hero-top">
+        <div>
+          <div class="hero-streak">
+            <span class="hero-streak-num" id="sn">0</span>
+            <span class="hero-streak-unit">Tage</span>
+            <span style="font-size:1.3rem;margin-left:.15rem">🔥</span>
+          </div>
+          <div class="hero-streak-label">am Stück — ¡Sigue así!</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:.72rem;color:rgba(255,255,255,.4);font-weight:600;margin-bottom:.2rem">Tagesziel</div>
+          <div style="font-size:1.1rem;font-weight:800;color:var(--sol)"><span id="goal-cur">0</span>/<span id="goal-max">5</span></div>
+        </div>
+      </div>
+      <div class="hero-goal-label">
+        <span class="hero-goal-text">Heute</span>
+        <span class="hero-goal-count" id="goal-pct">0%</span>
+      </div>
+      <div class="hero-goal-bar"><div class="hero-goal-fill" id="goal-fill" style="width:0%"></div></div>
+      <div class="hero-goal-msg" id="goal-msg">Fang heute noch an!</div>
+    </div>
+    <!-- WOTD: left-accent style -->
+    <div id="wotd-card" class="wotd-card" onclick="startWotd()">
+      <div class="wotd-card-inner">
+        <div class="wotd-label">Wort des Tages</div>
+        <div class="wotd-es" id="wotd-es">cargando…</div>
+        <div class="wotd-de" id="wotd-de"></div>
+        <div class="wotd-ex" id="wotd-ex"></div>
+      </div>
+      <span class="wotd-arrow">›</span>
+    </div>
+    <!-- city-row removed v6 -->
+    <div class="sec-title" style="margin-top:.1rem">Unidades</div>
+    <div id="ugrid" style="display:flex;gap:.6rem;overflow-x:auto;padding-bottom:.5rem;margin-bottom:.4rem;-webkit-overflow-scrolling:touch;scrollbar-width:none"></div>
+    <div class="sec-title">Gezielt üben</div>
+    <div class="qgrid">
+      <div class="qcard" onclick="openModal('vocab')"><div class="qi">📚</div><div class="qn">Wortschatz</div><div class="qs">Thema wählen</div></div>
+      <div class="qcard" onclick="openModal('grammar')"><div class="qi">⚙️</div><div class="qn">Grammatik</div><div class="qs">Thema wählen</div></div>
+      <div class="qcard" onclick="openModal('konjug')"><div class="qi">🔀</div><div class="qn">Konjugation</div><div class="qs">Tempora üben</div></div>
+      <div class="qcard" onclick="startDialog()"><div class="qi">💬</div><div class="qn">Dialog (KI)</div><div class="qs">Gespräch simulieren</div></div>
+      <div class="qcard" onclick="startReview()"><div class="qi">🔄</div><div class="qn">Wiederholung</div><div class="qs">Schwache Wörter</div></div>
+      <div class="qcard" onclick="startQuick()"><div class="qi">⚡</div><div class="qn">Schnell-Runde<span class="quick-session-tag">3 Min</span></div><div class="qs">3 Fragen, sofort fertig</div></div>
+    </div>
+  </div>
+  <nav class="botnav">
+    <button class="nbtn active" onclick="showScreen('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>Start</button>
+    <button class="nbtn" onclick="showScreen('units')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Unidades</button>
+    <button class="nbtn" onclick="showScreen('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profil</button>
+  </nav>
+</div>
+
+<!-- UNITS -->
+<div id="screen-units" class="screen">
+  <div class="topbar"><span class="logo">Unidades</span><div class="pills"><div class="pill">⚡<span id="u-xp">0</span></div></div></div>
+  <div style="padding:1.1rem;padding-bottom:5rem;">
+    <p style="color:var(--gris);font-size:.88rem;margin-bottom:.9rem;">Steig direkt in jede Unidad ein. Frühere Inhalte tauchen immer wieder auf.</p>
+    <div id="ulist"></div>
+  </div>
+  <nav class="botnav">
+    <button class="nbtn" onclick="showScreen('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>Start</button>
+    <button class="nbtn active" onclick="showScreen('units')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Unidades</button>
+    <button class="nbtn" onclick="showScreen('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profil</button>
+  </nav>
+</div>
+
+<!-- EXERCISE -->
+<div id="screen-exercise" class="screen">
+  <div class="exhead">
+    <button class="xbtn" onclick="confirmExit()">✕</button>
+    <div class="expbar"><div class="expfill" id="epf" style="width:0%"></div></div>
+    <span class="xpind" id="xpind">0 XP</span>
+  </div>
+  <div class="exbody" id="exbody"><div class="dots-row"><div class="dots"><span></span><span></span><span></span></div>Aufgaben werden geladen…</div></div>
+  <div class="exfoot">
+    <button class="btnchk primary" id="bchk" onclick="checkAnswer()" disabled>Überprüfen</button>
+    <button class="btnchk sunny" id="bnxt" onclick="nextEx()">Weiter →</button>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div id="screen-result" class="screen">
+  <div class="res-circle" id="ric">⭐</div>
+  <h2 class="disp res-xp" id="rt"></h2>
+  <p class="res-sub" id="rsub"></p>
+  <div class="res-badges">
+    <div class="rbadge"><div class="ri">⚡</div><div class="rv" id="r-xp">+0</div><div class="rl">XP</div></div>
+    <div class="rbadge"><div class="ri">✅</div><div class="rv" id="r-cor">0/0</div><div class="rl">Richtig</div></div>
+    <div class="rbadge"><div class="ri">🎯</div><div class="rv" id="r-acc">0%</div><div class="rl">Genauigkeit</div></div>
+  </div>
+  <div class="res-btns">
+    <button class="btn-p" onclick="playAgain()">Nochmal üben</button>
+    <button class="btnchk primary" onclick="showScreen('home')">Zur Startseite</button>
+  </div>
+</div>
+
+<!-- PROFILE -->
+<div id="screen-profile" class="screen">
+  <div class="prof-hero">
+    <div class="pav" id="pav">?</div>
+    <div class="pname" id="pnm">—</div>
+    <div class="plevel" id="plvl">Level 1</div>
+  </div>
+  <div class="pstats">
+    <div class="pstat"><div class="pv" id="ps-xp">0</div><div class="pl">XP</div></div>
+    <div class="pstat"><div class="pv" id="ps-str">0</div><div class="pl">Streak 🔥</div></div>
+    <div class="pstat"><div class="pv" id="ps-ex">0</div><div class="pl">Übungen</div></div>
+  </div>
+  <div id="weekly-report-placeholder"></div>
+  <div class="badgsec">
+    <div class="sec-title">Abzeichen</div>
+    <div class="bgrid" id="bgrid"></div>
+  </div>
+  <nav class="botnav">
+    <button class="nbtn" onclick="showScreen('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>Start</button>
+    <button class="nbtn" onclick="showScreen('units')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Unidades</button>
+    <button class="nbtn active" onclick="showScreen('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profil</button>
+  </nav>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="modal" onclick="closeModal(event)">
+  <div class="sheet">
+    <h3 id="mtitle">Thema</h3>
+    <div class="tlist" id="tlist"></div>
+    <button class="cls-btn" onclick="closeModalDirect()">Abbrechen</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+//  VOCABULARY DATA — a_tope nueva edición
+// ═══════════════════════════════════════════
+const UNITS = [
+  { id:0, name:'¡Hablamos español!', emoji:'👋', color:'#0096C7',
+    theme:'Begrüßung & Vorstellung',
+    vocab:[
+      {es:'hola',de:'Hallo'},{es:'me llamo',de:'ich heiße'},{es:'soy de',de:'ich komme aus'},
+      {es:'el español',de:'Spanisch (Sprache)'},{es:'hablar',de:'sprechen'},
+      {es:'el inglés',de:'Englisch'},{es:'también',de:'auch'},
+      {es:'¿Cómo te llamas?',de:'Wie heißt du?'},{es:'¿De dónde eres?',de:'Woher bist du?'},
+      {es:'la lengua',de:'die Sprache'},{es:'el ejemplo',de:'das Beispiel'},
+      {es:'el gallego',de:'Galicisch'},{es:'el francés',de:'Französisch'},
+      {es:'la capital',de:'die Hauptstadt'},{es:'tú',de:'du (informell)'},
+      {es:'¿Cómo estás?',de:'Wie geht es dir?'},{es:'muy bien',de:'sehr gut'},
+      {es:'¿Qué tal?',de:"Wie geht's?"},{es:'gracias',de:'danke'},
+    ]
+  },
+  { id:1, name:'Unidad 1 — ¡Vamos!', emoji:'🏙️', color:'#E63946',
+    theme:'Alltag & Schule',
+    vocab:[
+      {es:'estudiar',de:'lernen / zur Schule gehen'},{es:'trabajar',de:'arbeiten'},
+      {es:'charlar',de:'sich unterhalten'},{es:'vivir',de:'wohnen, leben'},
+      {es:'el instituto',de:'die weiterführende Schule'},
+      {es:'la biblioteca',de:'die Bibliothek'},{es:'la cafetería',de:'die Cafeteria'},
+      {es:'el móvil',de:'das Handy'},{es:'escribir',de:'schreiben'},
+      {es:'leer',de:'lesen'},{es:'comprender',de:'verstehen'},
+      {es:'aprender',de:'lernen'},{es:'la gramática',de:'die Grammatik'},
+      {es:'el vocabulario',de:'der Wortschatz'},{es:'bailar',de:'tanzen'},
+      {es:'la plaza',de:'der Platz'},{es:'el padre',de:'der Vater'},
+      {es:'la madre',de:'die Mutter'},{es:'el amigo / la amiga',de:'der Freund / die Freundin'},
+      {es:'el texto',de:'der Text'},{es:'la pregunta',de:'die Frage'},
+      {es:'el mensaje',de:'die Nachricht'},{es:'el momento',de:'der Moment'},
+      {es:'recibir',de:'bekommen, erhalten'},{es:'cerca',de:'nah, in der Nähe'},
+      {es:'primero',de:'zuerst'},{es:'después',de:'danach, später'},
+      {es:'la película',de:'der Film'},{es:'el regalo',de:'das Geschenk'},
+      {es:'comer',de:'essen'},{es:'descansar',de:'sich entspannen'},
+      {es:'comprar',de:'kaufen'},{es:'el número de teléfono',de:'die Telefonnummer'},
+    ]
+  },
+  { id:2, name:'Unidad 2 — Familia', emoji:'👨‍👩‍👧', color:'#2D6A4F',
+    theme:'Familie & Wohnen',
+    vocab:[
+      {es:'la familia',de:'die Familie'},{es:'el hermano / la hermana',de:'der Bruder / die Schwester'},
+      {es:'los padres',de:'die Eltern'},{es:'el abuelo / la abuela',de:'der Opa / die Oma'},
+      {es:'el tío / la tía',de:'der Onkel / die Tante'},
+      {es:'el primo / la prima',de:'der Cousin / die Cousine'},
+      {es:'tener',de:'haben'},{es:'los años',de:'die Jahre'},
+      {es:'la ciudad',de:'die Stadt'},{es:'el barrio',de:'der Stadtteil'},
+      {es:'la calle',de:'die Straße'},{es:'el piso',de:'die Wohnung'},
+      {es:'pequeño/-a',de:'klein'},{es:'inteligente',de:'intelligent'},
+      {es:'simpático/-a',de:'sympathisch'},{es:'guapo/-a',de:'hübsch'},
+      {es:'el apellido',de:'der Nachname'},{es:'la dirección',de:'die Adresse'},
+      {es:'la foto',de:'das Foto'},{es:'el novio / la novia',de:'der Freund / die Freundin (fest)'},
+      {es:'divertido/-a',de:'lustig'},{es:'tranquilo/-a',de:'ruhig'},
+      {es:'alegre',de:'fröhlich'},{es:'tímido/-a',de:'schüchtern'},
+      {es:'creativo/-a',de:'kreativ'},{es:'vago/-a',de:'faul'},
+      {es:'el centro',de:'das Zentrum'},{es:'el tráfico',de:'der Verkehr'},
+      {es:'el parque',de:'der Park'},{es:'la tienda',de:'der Laden'},
+      {es:'la panadería',de:'die Bäckerei'},{es:'el gimnasio',de:'das Fitnessstudio'},
+      {es:'bonito/-a',de:'schön, hübsch'},{es:'antiguo/-a',de:'alt, altertümlich'},
+    ]
+  },
+  { id:3, name:'Unidad 3 — Tiempo libre', emoji:'🎸', color:'#7B3FA0',
+    theme:'Freizeit, Hobbys & Kleidung',
+    vocab:[
+      {es:'el tiempo libre',de:'die Freizeit'},{es:'escuchar',de:'hören / zuhören'},
+      {es:'la música',de:'die Musik'},{es:'jugar',de:'spielen'},
+      {es:'el deporte',de:'der Sport'},{es:'la guitarra',de:'die Gitarre'},
+      {es:'el fútbol',de:'der Fußball'},{es:'viajar',de:'reisen'},
+      {es:'el concierto',de:'das Konzert'},{es:'me gusta',de:'ich mag / es gefällt mir'},
+      {es:'me encanta',de:'ich liebe es'},{es:'la ropa',de:'die Kleidung'},
+      {es:'la camisa',de:'das Hemd'},{es:'el pantalón',de:'die Hose'},
+      {es:'los zapatos',de:'die Schuhe'},{es:'el color',de:'die Farbe'},
+      {es:'rojo/-a',de:'rot'},{es:'azul',de:'blau'},
+      {es:'verde',de:'grün'},{es:'amarillo/-a',de:'gelb'},
+      {es:'negro/-a',de:'schwarz'},{es:'blanco/-a',de:'weiß'},
+      {es:'naranja',de:'orange'},{es:'gris',de:'grau'},
+      {es:'marrón',de:'braun'},{es:'violeta',de:'violett'},
+      {es:'la camiseta',de:'das T-Shirt'},{es:'el jersey',de:'der Pullover'},
+      {es:'los vaqueros',de:'die Jeans'},{es:'el vestido',de:'das Kleid'},
+      {es:'la chaqueta',de:'die Jacke'},{es:'los domingos',de:'sonntags'},
+      {es:'chatear',de:'chatten'},{es:'la fiesta',de:'die Party'},
+      {es:'el fin de semana',de:'das Wochenende'},
+      {es:'estar nervioso/-a',de:'nervös sein'},{es:'estar cansado/-a',de:'müde sein'},
+      {es:'estar feliz',de:'glücklich sein'},{es:'la hora',de:'die Stunde, Uhrzeit'},
+    ]
+  },
+  { id:4, name:'Unidad 4 — El día a día', emoji:'⏰', color:'#D97706',
+    theme:'Tagesablauf, Uhrzeit & Schule',
+    vocab:[
+      {es:'levantarse',de:'aufstehen'},{es:'ducharse',de:'duschen'},
+      {es:'desayunar',de:'frühstücken'},{es:'el desayuno',de:'das Frühstück'},
+      {es:'el autobús',de:'der Bus'},{es:'llegar',de:'ankommen'},
+      {es:'¿Qué hora es?',de:'Wie spät ist es?'},{es:'Es la una',de:'Es ist ein Uhr'},
+      {es:'Son las dos',de:'Es ist zwei Uhr'},{es:'los días de la semana',de:'die Wochentage'},
+      {es:'lunes',de:'Montag'},{es:'martes',de:'Dienstag'},
+      {es:'miércoles',de:'Mittwoch'},{es:'jueves',de:'Donnerstag'},
+      {es:'viernes',de:'Freitag'},{es:'sábado',de:'Samstag'},{es:'domingo',de:'Sonntag'},
+      {es:'enero',de:'Januar'},{es:'febrero',de:'Februar'},{es:'marzo',de:'März'},
+      {es:'abril',de:'April'},{es:'mayo',de:'Mai'},{es:'junio',de:'Juni'},
+      {es:'julio',de:'Juli'},{es:'agosto',de:'August'},{es:'septiembre',de:'September'},
+      {es:'octubre',de:'Oktober'},{es:'noviembre',de:'November'},{es:'diciembre',de:'Dezember'},
+      {es:'la asignatura',de:'das Schulfach'},{es:'el profesor / la profesora',de:'der Lehrer / die Lehrerin'},
+      {es:'los deberes',de:'die Hausaufgaben'},{es:'el consejo',de:'der Rat, Tipp'},
+      {es:'dormir',de:'schlafen'},{es:'terminar',de:'beenden'},
+      {es:'empezar',de:'anfangen'},{es:'abrir',de:'öffnen'},{es:'cerrar',de:'schließen'},
+      {es:'el cumpleaños',de:'der Geburtstag'},{es:'las vacaciones',de:'die Ferien'},
+    ]
+  },
+  { id:5, name:'Unidad 5 — En la ciudad', emoji:'🗺️', color:'#0891B2',
+    theme:'Stadt, Wohnen & Orientierung',
+    vocab:[
+      {es:'la habitación',de:'das Zimmer'},{es:'el piso compartido',de:'die WG'},
+      {es:'el alquiler',de:'die Miete'},{es:'la oficina',de:'das Büro'},
+      {es:'el metro',de:'die U-Bahn'},{es:'la parada',de:'die Haltestelle'},
+      {es:'seguir todo recto',de:'geradeaus gehen'},{es:'girar',de:'abbiegen'},
+      {es:'a la derecha',de:'rechts'},{es:'a la izquierda',de:'links'},
+      {es:'la farmacia',de:'die Apotheke'},{es:'la estación de trenes',de:'der Bahnhof'},
+      {es:'el arte',de:'die Kunst'},{es:'el museo',de:'das Museum'},
+      {es:'vale la pena',de:'es lohnt sich'},{es:'la tapa',de:'die Tapa'},
+      {es:'más (grande) que',de:'größer als'},{es:'tan … como',de:'so … wie'},
+      {es:'la cama',de:'das Bett'},{es:'el armario',de:'der Schrank'},
+      {es:'la ventana',de:'das Fenster'},{es:'la mesa',de:'der Tisch'},
+      {es:'la silla',de:'der Stuhl'},{es:'el sofá',de:'das Sofa'},
+      {es:'encima de',de:'über, auf'},{es:'debajo de',de:'unter'},
+      {es:'delante de',de:'vor'},{es:'detrás de',de:'hinter'},
+      {es:'al lado de',de:'neben'},{es:'entre',de:'zwischen'},
+      {es:'el patio',de:'der Innenhof'},{es:'el balcón',de:'der Balkon'},
+      {es:'el barrio',de:'der Stadtteil'},{es:'la tapa',de:'die Tapa'},
+      {es:'el estadio',de:'das Stadion'},
+    ]
+  },
+  { id:6, name:'Unidad 6 — De viaje', emoji:'✈️', color:'#BE185D',
+    theme:'Reisen & Vergangenheit',
+    vocab:[
+      {es:'el viaje',de:'die Reise'},{es:'la playa',de:'der Strand'},
+      {es:'la montaña',de:'der Berg'},{es:'ayer',de:'gestern'},
+      {es:'la semana pasada',de:'letzte Woche'},{es:'fui',de:'ich ging / ich war'},
+      {es:'pasado/-a',de:'vergangen, letzte/r/s'},{es:'divertirse',de:'Spaß haben'},
+      {es:'la iglesia',de:'die Kirche'},{es:'la historia',de:'die Geschichte'},
+      {es:'la independencia',de:'die Unabhängigkeit'},{es:'fundar',de:'gründen'},
+      {es:'construir',de:'bauen'},{es:'el lago',de:'der See'},
+      {es:'el desierto',de:'die Wüste'},{es:'el animal',de:'das Tier'},
+      {es:'el turista / la turista',de:'der Tourist / die Touristin'},
+      {es:'el kilómetro',de:'der Kilometer'},{es:'la fruta',de:'das Obst'},
+      {es:'la carne',de:'das Fleisch'},{es:'el pescado',de:'der Fisch'},
+      {es:'la verdura',de:'das Gemüse'},{es:'la tortilla de patatas',de:'das Kartoffelomelett'},
+      {es:'el ceviche',de:'peruanisches Fischgericht'},
+      {es:'el Camino Inca',de:'der Inka-Pfad'},{es:'hace dos días',de:'vor zwei Tagen'},
+    ]
+  },
+  { id:7, name:'Unidad 7 — Trabajo', emoji:'💼', color:'#6366F1',
+    theme:'Berufe & Zukunft',
+    vocab:[
+      {es:'el trabajo',de:'die Arbeit / der Job'},{es:'el sueldo',de:'das Gehalt'},
+      {es:'el empleo',de:'die Stelle'},{es:'la carrera',de:'das Studium / die Karriere'},
+      {es:'el futuro',de:'die Zukunft'},{es:'me gustaría',de:'ich würde gerne'},
+      {es:'el médico / la médica',de:'der Arzt / die Ärztin'},
+      {es:'dedicarse a',de:'sich beruflich beschäftigen mit'},
+      {es:'el currículum',de:'der Lebenslauf'},
+      {es:'la carta de presentación',de:'das Anschreiben'},
+      {es:'el punto fuerte',de:'die Stärke'},{es:'el punto débil',de:'die Schwäche'},
+      {es:'el diseñador web',de:'der Webdesigner'},{es:'el voluntariado',de:'der Freiwilligendienst'},
+      {es:'el idioma',de:'die Sprache'},{es:'el extranjero',de:'das Ausland'},
+      {es:'el secretario / la secretaria',de:'der Sekretär / die Sekretärin'},
+      {es:'la facilidad',de:'das Talent, die Begabung'},
+      {es:'el horario laboral',de:'die Arbeitszeit'},{es:'la pausa',de:'die Pause'},
+    ]
+  },
+  { id:8, name:'Unidad 8 — Naturaleza', emoji:'🌿', color:'#065F46',
+    theme:'Umwelt, Wetter & Spanien',
+    vocab:[
+      {es:'el medio ambiente',de:'die Umwelt'},{es:'reciclar',de:'recyceln'},
+      {es:'el agua',de:'das Wasser'},{es:'ahorrar',de:'sparen'},
+      {es:'hace sol',de:'es ist sonnig'},{es:'hace frío',de:'es ist kalt'},
+      {es:'hace calor',de:'es ist heiß'},{es:'llueve',de:'es regnet'},
+      {es:'nieva',de:'es schneit'},{es:'la tormenta',de:'das Gewitter'},
+      {es:'el viento',de:'der Wind'},{es:'el verano',de:'der Sommer'},
+      {es:'la costa',de:'die Küste'},{es:'el paisaje',de:'die Landschaft'},
+      {es:'antes',de:'früher / vorher'},{es:'la fábrica',de:'die Fabrik'},
+      {es:'la economía',de:'die Wirtschaft'},{es:'la montaña',de:'der Berg'},
+      {es:'el olivo',de:'der Olivenbaum'},{es:'la basura',de:'der Müll'},
+      {es:'la ecología',de:'die Ökologie'},{es:'sostenible',de:'nachhaltig'},
+      {es:'el conflicto',de:'der Konflikt'},{es:'la solución',de:'die Lösung'},
+      {es:'la Alhambra',de:'arabische Festung in Granada'},
+      {es:'el flamenco',de:'andalusischer Musikstil und Tanz'},
+    ]
+  },
+];
+
+// ═══════════════════════════════════════════
+//  CONJUGATION EXERCISES
+// ═══════════════════════════════════════════
+const CONJ = {
+  presente:[
+    {q:'yo ___ (hablar)',a:'hablo',hint:'ar-Verb, 1.Ps.Sg.',ex:'hablar: hablo,hablas,habla,hablamos,habláis,hablan'},
+    {q:'tú ___ español. (hablar)',a:'hablas',hint:'ar-Verb, 2.Ps.Sg.',ex:'2. Person Singular: -as'},
+    {q:'ella ___ mucho. (comprender)',a:'comprende',hint:'er-Verb, 3.Ps.Sg.',ex:'comprender: comprendo,comprendes,comprende…'},
+    {q:'nosotros ___ en Madrid. (vivir)',a:'vivimos',hint:'ir-Verb, 1.Ps.Pl.',ex:'vivir: vivo,vives,vive,vivimos,vivís,viven'},
+    {q:'yo ___ a la biblioteca. (ir)',a:'voy',hint:'ir: völlig unregelmäßig!',ex:'ir: voy,vas,va,vamos,vais,van'},
+    {q:'¿tú ___ hambre? (tener)',a:'tienes',hint:'tener (e→ie), 2.Ps.Sg.',ex:'tener: tengo,tienes,tiene,tenemos,tenéis,tienen'},
+    {q:'yo ___ mis deberes. (hacer)',a:'hago',hint:'hacer: 1.Ps.Sg. unregelmäßig',ex:'hacer: hago,haces,hace,hacemos,hacéis,hacen'},
+    {q:'vosotros ___ al cine. (ir)',a:'vais',hint:'ir, 2.Ps.Pl.',ex:'ir: voy,vas,va,vamos,vais,van'},
+    {q:'ella ___ de Madrid. (venir)',a:'viene',hint:'venir (e→ie), 3.Ps.Sg.',ex:'venir: vengo,vienes,viene,venimos,venís,vienen'},
+    {q:'yo ___ al fútbol. (jugar)',a:'juego',hint:'jugar (u→ue)',ex:'jugar: juego,juegas,juega,jugamos,jugáis,juegan'},
+    {q:'tú ___ muy bien. (conocer)',a:'conoces',hint:'conocer, 2.Ps.Sg.',ex:'conocer: conozco,conoces,conoce…'},
+    {q:'yo ___ la guitarra. (tocar)',a:'toco',hint:'tocar, 1.Ps.Sg.',ex:'tocar → toco (kein Umlaut nötig)'},
+  ],
+  indefinido:[
+    {q:'ayer yo ___ con amigos. (hablar)',a:'hablé',hint:'indefinido, hablar, 1.Ps.Sg.',ex:'hablar: hablé,hablaste,habló,hablamos,hablasteis,hablaron'},
+    {q:'la semana pasada, ella ___ en Madrid. (vivir)',a:'vivió',hint:'vivir, indefinido, 3.Ps.Sg.',ex:'vivir: viví,viviste,vivió,vivimos,vivisteis,vivieron'},
+    {q:'nosotros ___ mucho en el viaje. (aprender)',a:'aprendimos',hint:'aprender, indefinido, 1.Ps.Pl.',ex:'aprender: aprendí,aprendiste,aprendió,aprendimos…'},
+    {q:'yo ___ al museo ayer. (ir)',a:'fui',hint:'ir, indefinido, 1.Ps.Sg. — gleich wie ser!',ex:'ir/ser: fui,fuiste,fue,fuimos,fuisteis,fueron'},
+    {q:'ella ___ la carta. (hacer)',a:'hizo',hint:'hacer, indefinido, 3.Ps.Sg. (-z statt -c!)',ex:'hacer: hice,hiciste,hizo,hicimos,hicisteis,hicieron'},
+    {q:'¿dónde ___ tú el fin de semana? (estar)',a:'estuviste',hint:'estar, indefinido, 2.Ps.Sg.',ex:'estar: estuve,estuviste,estuvo,estuvimos,estuvisteis,estuvieron'},
+    {q:'nosotros ___ de Madrid en tren. (venir)',a:'vinimos',hint:'venir, indefinido, 1.Ps.Pl.',ex:'venir: vine,viniste,vino,vinimos,vinisteis,vinieron'},
+    {q:'ellos ___ mucho dinero. (tener)',a:'tuvieron',hint:'tener, indefinido, 3.Ps.Pl.',ex:'tener: tuve,tuviste,tuvo,tuvimos,tuvisteis,tuvieron'},
+    {q:'yo ___ en la fiesta. (divertirse)',a:'me divertí',hint:'divertirse (e→i), indefinido, 1.Ps.Sg.',ex:'divertir(se): me divertí,te divertiste,se divirtió…'},
+    {q:'ella ___ a casa muy tarde. (llegar)',a:'llegó',hint:'llegar, indefinido, 3.Ps.Sg.',ex:'llegar: llegué,llegaste,llegó…'},
+  ],
+  imperfecto:[
+    {q:'cuando era niño, yo ___ mucho. (jugar)',a:'jugaba',hint:'imperfecto: Gewohnheiten',ex:'jugar: jugaba,jugabas,jugaba,jugábamos,jugabais,jugaban'},
+    {q:'antes, nosotros ___ en Madrid. (vivir)',a:'vivíamos',hint:'vivir, imperfecto, 1.Ps.Pl.',ex:'vivir: vivía,vivías,vivía,vivíamos,vivíais,vivían'},
+    {q:'ella siempre ___ los domingos. (descansar)',a:'descansaba',hint:'imperfecto, descansar, 3.Ps.Sg.',ex:'descansar: descansaba,descansabas,descansaba…'},
+    {q:'hace diez años ___ mucho tráfico. (haber)',a:'había',hint:'hay → había (imperfecto)',ex:'haber: había (3.Ps. einheitlich)'},
+    {q:'tú siempre ___ tarde. (llegar)',a:'llegabas',hint:'llegar, imperfecto, 2.Ps.Sg.',ex:'llegar: llegaba,llegabas,llegaba…'},
+    {q:'ellos ___ mucho fútbol de pequeños. (ver)',a:'veían',hint:'ver, imperfecto, 3.Ps.Pl.',ex:'ver: veía,veías,veía,veíamos,veíais,veían'},
+    {q:'nosotros ___ en casa los fines de semana. (estar)',a:'estábamos',hint:'estar, imperfecto, 1.Ps.Pl.',ex:'estar: estaba,estabas,estaba,estábamos,estabais,estaban'},
+  ],
+  futuro:[
+    {q:'mañana yo ___ al cine. (ir a + inf.)',a:'voy a ir',hint:'ir a + Infinitiv',ex:'voy/vas/va/vamos/vais/van + a + Infinitiv'},
+    {q:'esta tarde ella ___ sus deberes. (ir a + hacer)',a:'va a hacer',hint:'ir a + Infinitiv, 3.Ps.Sg.',ex:'va a + Infinitiv'},
+    {q:'nosotros ___ juntos mañana. (ir a + estudiar)',a:'vamos a estudiar',hint:'1.Ps.Pl. + ir a',ex:'vamos a + Infinitiv'},
+    {q:'el año que viene ellos ___ a España. (ir a + viajar)',a:'van a viajar',hint:'3.Ps.Pl. + ir a',ex:'van a + Infinitiv'},
+  ],
+  konditional:[
+    {q:'me ___ vivir en España. (gustaría)',a:'gustaría',hint:'Konditional: me gustaría + Inf.',ex:'me gustaría, te gustaría, le gustaría…'},
+    {q:'yo, en tu lugar, ___ más. (estudiar — Konditional)',a:'estudiaría',hint:'estudiar, Konditional, 1.Ps.Sg.',ex:'estudiar: estudiaría,estudiarías,estudiaría…'},
+    {q:'¿___ ayudarme? (poder — Konditional, tú)',a:'podrías',hint:'poder: unregelmäßiger Konditionalstamm podr-',ex:'poder: podría,podrías,podría,podríamos,podríais,podrían'},
+    {q:'nosotros ___ comprar productos de comercio justo. (deber — Konditional)',a:'deberíamos',hint:'deber, Konditional, 1.Ps.Pl.',ex:'deber: debería,deberías,debería,deberíamos…'},
+  ],
+};
+
+// ═══════════════════════════════════════════
+//  GRAMMAR EXERCISES (inline)
+// ═══════════════════════════════════════════
+const GRAMEX = {
+  ser_estar:[
+    {type:'mc',q:'Madrid … la capital de España.',choices:['es','está','son','están'],correct:0,ex:'ser für Eigenschaft/Herkunft: es.'},
+    {type:'mc',q:'¿Dónde … tu hermano ahora?',choices:['es','está','son','están'],correct:1,ex:'estar für Ort (temporär): está.'},
+    {type:'mc',q:'Lucía … muy inteligente.',choices:['es','está','son','están'],correct:0,ex:'ser für dauerhafte Eigenschaft: es.'},
+    {type:'fill',q:'El museo … cerca de la plaza. (estar)',a:'está',ex:'estar für Ort → está.'},
+    {type:'fill',q:'Nosotros … de Alemania. (ser)',a:'somos',ex:'ser, 1.Ps.Pl. → somos.'},
+    {type:'mc',q:'Estoy … cansado porque no dormí bien.',choices:['siendo','siendo','—','estando'],correct:2,ex:'estar + Adjektiv für vorübergehenden Zustand.',},
+  ],
+  gustar:[
+    {type:'mc',q:'A mí … bailar.',choices:['me gusta','te gusta','le gusta','nos gusta'],correct:0,ex:'a mí → me gusta.'},
+    {type:'fill',q:'¿A ti … los videojuegos? (gustar)',a:'te gustan',ex:'Plural → te gustan.'},
+    {type:'mc',q:'A ella … mucho la música.',choices:['me encanta','te encanta','le encanta','nos encanta'],correct:2,ex:'a ella → le encanta.'},
+    {type:'fill',q:'A nosotros … las tapas. (gustar)',a:'nos gustan',ex:'a nosotros → nos gustan.'},
+  ],
+  imperativ:[
+    {type:'mc',q:'¡… tu libro! (tomar, tú)',choices:['toma','tomas','tome','tomad'],correct:0,ex:'Imperativ tú, -ar: Stamm + -a → toma.'},
+    {type:'fill',q:'¡… atención! (poner, tú)',a:'pon',ex:'poner → pon (unregelmäßig).'},
+    {type:'mc',q:'¡… a casa! (ir, tú)',choices:['va','ve','vaya','vais'],correct:1,ex:'ir, Imperativ tú → ve.'},
+    {type:'fill',q:'¡… los deberes! (hacer, tú)',a:'haz',ex:'hacer → haz (unregelmäßig).'},
+    {type:'fill',q:'¡… más! (comer, vosotros)',a:'comed',ex:'Imperativ vosotros, -er: Stamm + -ed → comed.'},
+  ],
+  reflexive:[
+    {type:'mc',q:'Yo … a las siete. (levantarse)',choices:['me levanto','te levantas','se levanta','nos levantamos'],correct:0,ex:'reflexiv, 1.Ps.Sg. → me levanto.'},
+    {type:'fill',q:'Tú siempre … por la mañana. (ducharse)',a:'te duchas',ex:'ducharse, 2.Ps.Sg. → te duchas.'},
+    {type:'mc',q:'Ella … tarde los fines de semana. (acostarse)',choices:['me acuesto','te acuestas','se acuesta','nos acostamos'],correct:2,ex:'acostarse (o→ue), 3.Ps.Sg. → se acuesta.'},
+    {type:'fill',q:'Nosotros … antes del examen. (prepararse)',a:'nos preparamos',ex:'prepararse, 1.Ps.Pl. → nos preparamos.'},
+  ],
+  komparativ:[
+    {type:'mc',q:'Madrid es … grande … Barcelona.',choices:['más … que','menos … que','tan … que','más … de'],correct:0,ex:'Ungleichheit (mehr): más + Adj. + que.'},
+    {type:'fill',q:'Este piso es … caro … el otro. (menos)',a:'menos caro que',ex:'menos + Adj. + que.'},
+    {type:'mc',q:'Lucía es … alta … Marta. (Gleichheit)',choices:['tan … como','tan … que','más … como','menos … como'],correct:0,ex:'Gleichheit: tan + Adj. + como.'},
+    {type:'fill',q:'Mi hermano cocina mejor. (superlativ: el/la … de)',a:'el mejor',ex:'bueno → mejor → el mejor (superlativo).'},
+  ],
+  indefinido_irreg:[
+    {type:'fill',q:'yo ___ al museo. (ir, indefinido)',a:'fui',ex:'ir, indefinido, 1.Ps.Sg. → fui.'},
+    {type:'fill',q:'ella ___ la carta. (hacer, indefinido)',a:'hizo',ex:'hacer, 3.Ps.Sg. → hizo.'},
+    {type:'fill',q:'tú ___ en Madrid. (estar, indefinido)',a:'estuviste',ex:'estar: estuve,estuviste,estuvo…'},
+    {type:'fill',q:'ellos ___ mucho. (tener, indefinido)',a:'tuvieron',ex:'tener: tuve,tuviste,tuvo,tuvimos,tuvisteis,tuvieron.'},
+    {type:'mc',q:'nosotros ___ de Madrid en tren. (venir)',choices:['venimos','vinimos','veníamos','vendríamos'],correct:1,ex:'venir indefinido, 1.Ps.Pl. → vinimos.'},
+  ],
+};
+
+const VOCAB_THEMES = [
+  {id:'school',label:'Schule & Lernen',icon:'📚',desc:'Fächer, Schulleben',unit:1},
+  {id:'family',label:'Familie',icon:'👨‍👩‍👧',desc:'Verwandtschaft',unit:2},
+  {id:'leisure',label:'Freizeit & Hobbys',icon:'⚽',desc:'Sport, Musik',unit:3},
+  {id:'clothes',label:'Kleidung & Farben',icon:'👗',desc:'Kleidungsstücke',unit:3},
+  {id:'daily',label:'Tagesablauf',icon:'⏰',desc:'Routinen, Uhrzeit',unit:4},
+  {id:'city',label:'Stadt & Wege',icon:'🗺️',desc:'Orientierung',unit:5},
+  {id:'travel',label:'Reisen',icon:'✈️',desc:'Urlaub, Transport',unit:6},
+  {id:'jobs',label:'Berufe',icon:'💼',desc:'Arbeit & Zukunft',unit:7},
+  {id:'nature',label:'Natur & Wetter',icon:'🌤️',desc:'Umwelt, Klima',unit:8},
+];
+
+const GRAMMAR_THEMES = [
+  {id:'ser_estar',label:'ser vs. estar',icon:'⚖️',desc:'Wann welches "sein"?'},
+  {id:'gustar',label:'gustar & encantar',icon:'❤️',desc:'Mögen & Lieben'},
+  {id:'imperativ',label:'Imperativ tú',icon:'📢',desc:'Aufforderungen'},
+  {id:'reflexive',label:'Reflexivverben',icon:'🪞',desc:'levantarse, ducharse…'},
+  {id:'komparativ',label:'Komparativ',icon:'📊',desc:'más/menos/tan…que'},
+  {id:'indefinido_irreg',label:'Indefinido unregelmäßig',icon:'⚡',desc:'fui, hice, tuve…'},
+];
+
+const KONJUG_THEMES = [
+  {id:'presente',label:'Presente',icon:'🟢',desc:'Gegenwart, alle Formen'},
+  {id:'indefinido',label:'Pretérito indefinido',icon:'📅',desc:'abgeschlossene Vergangenheit'},
+  {id:'imperfecto',label:'Pretérito imperfecto',icon:'🌫️',desc:'Zustände & Gewohnheiten'},
+  {id:'futuro',label:'Futur — ir a + inf.',icon:'🔮',desc:'nahe Zukunft'},
+  {id:'konditional',label:'Konditional',icon:'💭',desc:'Möglichkeit & Wunsch'},
+];
+
+// ═══════════════════════════════════════════
+//  DIALOG SCENARIOS
+// ═══════════════════════════════════════════
+const DIALOG_SCENARIOS = [
+  {title:'Sich vorstellen',unit:0,context:'Du stellst dich einer neuen Mitschülerin vor.',char:'María',situation:'primera clase de español'},
+  {title:'Im Café bestellen',unit:3,context:'Du bist in einem spanischen Café.',char:'Camarero',situation:'cafetería en Madrid'},
+  {title:'Nach dem Weg fragen',unit:5,context:'Du bist in Madrid und suchst den Bahnhof.',char:'Peatón',situation:'calle en Madrid'},
+  {title:'Über Hobbys sprechen',unit:3,context:'Du unterhältst dich mit einem Spanier über Freizeit.',char:'Alejandro',situation:'tiempo libre'},
+  {title:'Einkaufen gehen',unit:3,context:'Du kaufst Kleidung in einem Geschäft.',char:'Dependienta',situation:'tienda de ropa'},
+  {title:'Über die Schule sprechen',unit:4,context:'Du erzählst von deinem Schulalltag.',char:'Lucía',situation:'conversación con un amigo'},
+  {title:'Einen Job bewerben',unit:7,context:'Du bewirbst dich für einen Sommerjob.',char:'Jefe',situation:'entrevista de trabajo'},
+];
+
+// ═══════════════════════════════════════════
+//  STATE & PERSISTENCE
+// ═══════════════════════════════════════════
+let S = {nickname:'',xp:0,streak:0,lastPlayed:null,exercises_done:0,unit_progress:{},weak_words:[],badges:[],word_stats:{},topic_stats:{},weekly_log:{},session_history:[]};
+let ses = {exs:[],idx:0,correct:0,xp:0,mode:'',unitId:null};
+let selChoice = -1;
+
+function save(){try{localStorage.setItem('atope2',JSON.stringify(S));}catch(e){}}
+function load(){try{const d=localStorage.getItem('atope2');if(d)S={...S,...JSON.parse(d)};}catch(e){}}
+load();
+
+// ═══════════════════════════════════════════
+//  SCREENS
+// ═══════════════════════════════════════════
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+id).classList.add('active');
+  if(id==='home')renderHome();
+  if(id==='units')renderUnitsList();
+  if(id==='profile')renderProfile();
+}
+
+// ═══════════════════════════════════════════
+//  WELCOME
+// ═══════════════════════════════════════════
+function startApp(){
+  const n=document.getElementById('nic').value.trim();
+  if(n)S.nickname=n;
+  else if(!S.nickname)S.nickname='Estudiante';
+  updateStreak();save();
+  if(!S.onboarded){showScreen('onboard');}
+  else{showScreen('home');}
+}
+document.getElementById('nic').addEventListener('keydown',e=>{if(e.key==='Enter')startApp();});
+if(S.nickname)document.getElementById('nic').value=S.nickname;
+if(S.nickname&&S.exercises_done>0){updateStreak();showScreen('home');}
+
+// Onboarding navigation
+let obIdx=0;
+function obNext(){
+  if(obIdx<2){
+    document.getElementById('ob'+obIdx).classList.remove('active');
+    document.getElementById('dot'+obIdx).classList.remove('active');
+    obIdx++;
+    document.getElementById('ob'+obIdx).classList.add('active');
+    document.getElementById('dot'+obIdx).classList.add('active');
+    if(obIdx===2)document.getElementById('ob-btn').textContent='¡Listo! →';
+  } else {
+    S.onboarded=true;save();showScreen('home');
+  }
+}
+
+function updateStreak(){
+  const today=new Date().toDateString();
+  if(S.lastPlayed===today)return;
+  const yest=new Date(Date.now()-86400000).toDateString();
+  S.streak=S.lastPlayed===yest?S.streak+1:1;
+  S.lastPlayed=today;
+}
+
+// ═══════════════════════════════════════════
+//  HOME
+// ═══════════════════════════════════════════
+function renderHome(){
+  document.getElementById('h-name').textContent=S.nickname;
+  document.getElementById('h-xp').textContent=S.xp;
+  document.getElementById('h-str').textContent=S.streak;
+  // Update hero card streak
+  const snEl=document.getElementById('sn');if(snEl)snEl.textContent=S.streak||0;
+  const grid=document.getElementById('ugrid');grid.innerHTML='';
+  UNITS.forEach(u=>{
+    const p=S.unit_progress[u.id]||{done:0};
+    const pct=Math.min(100,(p.done||0)*10);
+    const done=pct>=100,going=pct>0&&pct<100;
+    const chip=document.createElement('div');
+    chip.style.cssText=`flex-shrink:0;background:${done?'rgba(255,183,3,.1)':going?'var(--noche4)':'var(--noche3)'};border:1.5px solid ${done?'rgba(255,183,3,.45)':going?'rgba(255,255,255,.12)':'rgba(255,255,255,.07)'};border-radius:16px;padding:.55rem .85rem;cursor:pointer;text-align:center;transition:all .15s;min-width:70px;`;
+    chip.innerHTML=`<div style="font-size:1.5rem;line-height:1">${u.emoji}</div><div style="font-size:.7rem;font-weight:800;color:${done?'var(--sol)':'rgba(255,255,255,.55)'};margin-top:.25rem;white-space:nowrap">${u.id===0?'Intro':'U'+u.id}</div>`;
+    chip.onclick=()=>startUnit(u.id);grid.appendChild(chip);
+  });
+}
+
+// ═══════════════════════════════════════════
+//  UNITS LIST
+// ═══════════════════════════════════════════
+function renderUnitsList(){
+  document.getElementById('u-xp').textContent=S.xp;
+  const l=document.getElementById('ulist');l.innerHTML='';
+  UNITS.forEach(u=>{
+    const p=S.unit_progress[u.id]||{done:0};
+    const pct=Math.min(100,(p.done||0)*10);
+    const d=document.createElement('div');
+    d.className='ulist-item';
+    d.style.borderLeft=`4px solid ${u.color}`;
+    d.innerHTML=`<span class="ulem">${u.emoji}</span><div class="ulinfo"><div class="uln">${u.id===0?'¡Hablamos español!':'Unidad '+u.id+' — '+u.theme}</div><div class="ult">${p.done||0} Runden · ${pct}%</div><div class="pbar" style="margin-top:.35rem"><div class="pfill" style="width:${pct}%;background:${u.color}"></div></div></div>`;
+    d.onclick=()=>startUnit(u.id);l.appendChild(d);
+  });
+}
+
+// ═══════════════════════════════════════════
+//  MODAL
+// ═══════════════════════════════════════════
+let mMode='';
+function openModal(mode){
+  mMode=mode;
+  const items=mode==='grammar'?GRAMMAR_THEMES:mode==='konjug'?KONJUG_THEMES:VOCAB_THEMES;
+  document.getElementById('mtitle').textContent=mode==='grammar'?'Grammatikthema':mode==='konjug'?'Konjugation üben':'Wortschatz-Thema';
+  const l=document.getElementById('tlist');l.innerHTML='';
+  items.forEach(t=>{
+    const d=document.createElement('div');d.className='titem';
+    d.innerHTML=`<span class="ti">${t.icon}</span><div><div class="tn">${t.label}</div><div class="td">${t.desc}</div></div>`;
+    d.onclick=()=>{closeModalDirect();
+      if(mode==='grammar')startGrammar(t.id);
+      else if(mode==='konjug')startKonjug(t.id);
+      else startVocabTheme(t.id,t.unit);
+    };l.appendChild(d);
+  });
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(e){if(e.target===document.getElementById('modal'))closeModalDirect();}
+function closeModalDirect(){document.getElementById('modal').classList.remove('open');}
+
+// ═══════════════════════════════════════════
+//  SESSION LAUNCHERS
+// ═══════════════════════════════════════════
+function startUnit(uid){
+  const unit=UNITS[uid];let pool=[...unit.vocab];
+  const weak=S.weak_words.filter(w=>w.unit!==uid).slice(0,3);
+  weak.forEach(w=>pool.push({...w,review:true}));
+  if(uid>1){const prev=UNITS[Math.max(0,uid-2)];prev.vocab.slice(0,3).forEach(w=>pool.push({...w,review:true}));}
+  shuffle(pool);
+  ses={exs:pool.slice(0,9).map(v=>mkVocEx(v,unit)),idx:0,correct:0,xp:0,mode:'unit',unitId:uid};
+  launch();
+}
+
+function startVocabTheme(tid,unitId){
+  const u=UNITS[unitId];let pool=[...u.vocab];
+  if(unitId>0)pool=pool.concat(UNITS[unitId-1].vocab.slice(0,5));
+  shuffle(pool);
+  ses={exs:pool.slice(0,9).map(v=>mkVocEx(v,u)),idx:0,correct:0,xp:0,mode:'vocab',unitId};launch();
+}
+
+function startGrammar(tid){
+  const exs=GRAMEX[tid]||[];if(!exs.length){alert('Kommt bald!');return;}
+  ses={exs:shuffle([...exs]).slice(0,7),idx:0,correct:0,xp:0,mode:'grammar',unitId:null};launch();
+}
+
+function startKonjug(tid){
+  const exs=(CONJ[tid]||[]).map(e=>({type:'fill',q:e.q,a:e.a,explain:e.ex,hint:e.hint,tag:'⚙️ Konjugation'}));
+  if(!exs.length){alert('Kommt bald!');return;}
+  ses={exs:shuffle([...exs]).slice(0,8),idx:0,correct:0,xp:0,mode:'konjug',unitId:null};launch();
+}
+
+function startReview(){
+  if(!S.weak_words.length){startUnit(1);return;}
+  const pool=[...S.weak_words];shuffle(pool);
+  ses={exs:pool.slice(0,9).map(v=>mkVocEx(v,UNITS[v.unit||1])),idx:0,correct:0,xp:0,mode:'review',unitId:null};launch();
+}
+
+function startRandom(){
+  let pool=[];UNITS.slice(0,5).forEach(u=>pool=pool.concat(u.vocab.map(v=>({...v,unit:u.id}))));
+  // Adaptive weighting: words with more errors appear more often
+  const weighted=[];
+  pool.forEach(v=>{
+    const stat=S.word_stats[v.es];
+    const reps=stat ? Math.max(1, Math.ceil(stat.wrong/(stat.correct||1)*2)) : 1;
+    for(let i=0;i<reps;i++) weighted.push(v);
+  });
+  shuffle(weighted);
+  ses={exs:weighted.slice(0,9).map(v=>mkVocEx(v,UNITS[v.unit||0])),idx:0,correct:0,xp:0,mode:'random',unitId:null};launch();
+}
+
+async function startDialog(){
+  const uid=Math.min(8,Object.keys(S.unit_progress).length);
+  const scenario=DIALOG_SCENARIOS[Math.min(uid,DIALOG_SCENARIOS.length-1)];
+  // Attach error profile so KI can target weaknesses
+  scenario._errorProfile = getErrorProfileSummary();
+  ses={exs:[{type:'dialog',scenario}],idx:0,correct:0,xp:0,mode:'dialog',unitId:scenario.unit};
+  launch();
+}
+
+// ═══════════════════════════════════════════
+//  EXERCISE BUILDER
+// ═══════════════════════════════════════════
+function mkVocEx(v,unit){
+  if(Math.random()<.5){
+    const dist=getDistractors(v.de,3);
+    const ch=shuffle([v.de,...dist]);
+    return{type:'mc',q:v.es,qLabel:'Wie heißt das auf Deutsch?',choices:ch,correct:ch.indexOf(v.de),explain:`${v.es} = ${v.de}`,vocab:v,review:v.review};
+  }
+  return{type:'fill',q:v.de,qLabel:'Schreib auf Spanisch:',a:v.es.toLowerCase().replace(/[¿¡]/g,'').trim(),explain:`${v.de} = ${v.es}`,vocab:v,review:v.review};
+}
+
+function getDistractors(correct,n){
+  let pool=[];UNITS.forEach(u=>pool=pool.concat(u.vocab.map(v=>v.de)));
+  pool=pool.filter(d=>d!==correct);shuffle(pool);return pool.slice(0,n);
+}
+
+// ═══════════════════════════════════════════
+//  RENDER EXERCISE
+// ═══════════════════════════════════════════
+function launch(){showScreen('exercise');renderEx();}
+
+function renderEx(){
+  const ex=ses.exs[ses.idx];const tot=ses.exs.length;
+  document.getElementById('epf').style.width=(ses.idx/tot*100)+'%';
+  document.getElementById('xpind').textContent=ses.xp+' XP';
+  const bchk=document.getElementById('bchk'),bnxt=document.getElementById('bnxt');
+  bchk.style.display='block';bnxt.style.display='none';bchk.disabled=true;selChoice=-1;
+
+  if(ex.type==='dialog'){renderDialog(ex.scenario);return;}
+
+  let html='';
+  const tag=ex.tag||( ex.type==='mc'?'📝 Übersetzung':'✏️ Schreiben');
+  if(ex.review)html+=`<div class="ex-tag">🔄 Wiederholung</div>`;
+  else html+=`<div class="ex-tag">${tag}</div>`;
+  html+=`<div class="ex-q">${ex.q.replace('___','<span style="border-bottom:3px solid var(--mar);padding:0 6px">___</span>')}</div>`;
+  if(ex.hint)html+=`<div class="ex-hint">💡 ${ex.hint}</div>`;
+  else if(ex.qLabel)html+=`<div class="ex-hint">${ex.qLabel}</div>`;
+
+  if(ex.type==='mc'){
+    html+=`<div class="cgrid">${ex.choices.map((c,i)=>`<button class="cbtn" onclick="selCh(${i})" data-i="${i}">${c}</button>`).join('')}</div>`;
+  } else {
+    html+=`<input class="finp" id="finp" type="text" placeholder="Antwort…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+    <div class="schars">${['á','é','í','ó','ú','ü','ñ','¿','¡','…'].map(c=>`<button class="sbtn" onclick="ins('${c}')">${c}</button>`).join('')}</div>`;
+  }
+  html+=`<div class="fbpanel" id="fbp"></div>`;
+  document.getElementById('exbody').innerHTML=html;
+
+  if(ex.type==='fill'){
+    const inp=document.getElementById('finp');inp.focus();
+    inp.addEventListener('input',()=>{bchk.disabled=!inp.value.trim();});
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&!bchk.disabled)checkAnswer();});
+  }
+}
+
+// ─── DIALOG RENDER ───────────────────────
+async function renderDialog(scenario){
+  const bchk=document.getElementById('bchk');
+  bchk.style.display='none';
+  document.getElementById('bnxt').style.display='none';
+
+  document.getElementById('exbody').innerHTML=`
+    <div class="ai-chip">✨ KI-Dialog</div>
+    <div class="ex-tag">💬 ${scenario.title}</div>
+    <div class="ex-hint" style="font-size:.9rem;color:var(--tinta)">${scenario.context}</div>
+    <div class="dialog-box" id="dbox"><div class="db-title">Gespräch</div><div class="dots-row"><div class="dots"><span></span><span></span><span></span></div>Dialog wird generiert…</div></div>
+    <div class="fbpanel" id="fbp"></div>`;
+
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',max_tokens:800,
+        system:`Du bist ein Spanischlehrer-Assistent für deutsche Gymnasialschüler (EF, Niveau A1-A2, Buch: a_tope nueva edición). ${scenario._errorProfile ? 'Fehlerprofil dieser Schülerin/dieses Schülers: ' + scenario._errorProfile + '. Baue gezielt diese Strukturen ein.' : ''} Generiere einen kurzen Dialogstart auf Spanisch (3-4 Zeilen) und eine Aufgabe auf Deutsch. Antworte NUR als JSON: {"dialog":[{"speaker":"${scenario.char}","text":"...","translation":"..."},...], "task":"Deine Aufgabe: ...", "tip":"Tipp: ..."}`,
+        messages:[{role:'user',content:`Szenario: ${scenario.situation}. Thema: ${scenario.title}. Niveau: A1-A2, Schüler EF Gymnasium NRW. Erstelle einen Dialogstart und eine Antwortaufgabe für den Schüler. Nur JSON, kein Markdown.`}]
+      })
+    });
+    const data=await resp.json();
+    const txt=data.content?.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim();
+    const parsed=JSON.parse(txt);
+    renderDialogContent(parsed,scenario);
+  }catch(e){
+    // Offline fallback
+    renderDialogFallback(scenario);
+  }
+}
+
+function renderDialogContent(d,scenario){
+  let msgs='';
+  d.dialog.forEach(m=>{
+    msgs+=`<div class="dialog-msg es"><div><div class="dm-speaker">${m.speaker}</div><div class="dm-bubble">${m.text}<br><span style="opacity:.7;font-size:.8em;font-style:italic">${m.translation||''}</span></div></div></div>`;
+  });
+  const box=document.getElementById('dbox');
+  box.innerHTML=`<div class="db-title">💬 ${scenario.title}</div>${msgs}
+  <div class="dialog-task">
+    <p>${d.task||'Antworte auf Spanisch!'}</p>
+    ${d.tip?`<p style="font-size:.8rem;color:var(--gris);margin-top:.3rem">${d.tip}</p>`:''}
+    <input class="dtinp" id="dtinp" type="text" placeholder="Deine Antwort auf Spanisch…" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+  </div>`;
+
+  const bchk=document.getElementById('bchk');
+  bchk.style.display='block';bchk.disabled=false;
+  bchk.textContent='Antwort prüfen lassen';
+  bchk.onclick=()=>checkDialogAnswer(d,scenario);
+}
+
+function renderDialogFallback(scenario){
+  const fallbacks={
+    0:{dialog:[{speaker:'María',text:'¡Hola! Me llamo María. ¿Y tú?',translation:'Hallo! Ich heiße María. Und du?'}],task:'Stell dich vor: Sag deinen Namen und wo du herkommst.',tip:'Tipp: Me llamo … Soy de …'},
+    3:{dialog:[{speaker:'Alejandro',text:'¿Qué te gusta hacer en tu tiempo libre?',translation:'Was machst du gerne in deiner Freizeit?'}],task:'Erzähl, was du in deiner Freizeit machst.',tip:'Tipp: Me gusta mucho … / A mí también me gusta …'},
+    5:{dialog:[{speaker:'Peatón',text:'Perdona, ¿sabes dónde está la estación de metro?',translation:'Entschuldigung, weißt du, wo die U-Bahn-Station ist?'}],task:'Gib dem Fußgänger eine Wegbeschreibung.',tip:'Tipp: Sigue todo recto / Gira a la derecha / Está al lado de …'},
+  };
+  const fb=fallbacks[scenario.unit]||fallbacks[0];
+  renderDialogContent({...fb,task:fb.dialog[0].translation?'Antworte auf Spanisch!':fb.dialog[0].text},scenario);
+}
+
+async function checkDialogAnswer(d,scenario){
+  const ans=document.getElementById('dtinp')?.value||'';
+  if(!ans.trim())return;
+  const bchk=document.getElementById('bchk');
+  bchk.disabled=true;bchk.textContent='Wird bewertet…';
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',max_tokens:300,
+        system:`Du bist ein freundlicher Spanischlehrer für deutsche Gymnasialschüler (Niveau A1-A2). Bewerte kurz die Antwort: Ist sie verständlich? Was ist gut? Was könnte man verbessern? Antworte auf Deutsch, kurz und ermutigend. Max. 3 Sätze. Fokussiere auf die größten Fehler.`,
+        messages:[{role:'user',content:`Szenario: ${scenario.situation}. Schülerantwort: "${ans}". Bewerte bitte kurz.`}]
+      })
+    });
+    const data=await resp.json();
+    const feedback=data.content?.map(i=>i.text||'').join('')||'Gut gemacht! Weiter so.';
+    ses.correct++;ses.xp+=15;
+    document.getElementById('fbp').className='fbpanel ok show';
+    document.getElementById('fbp').innerHTML=`<h4>✅ KI-Feedback</h4><p>${feedback}</p>`;
+    bchk.style.display='none';
+    document.getElementById('bnxt').style.display='block';
+    document.getElementById('xpind').textContent=ses.xp+' XP';
+  }catch(e){
+    ses.correct++;ses.xp+=15;
+    document.getElementById('fbp').className='fbpanel ok show';
+    document.getElementById('fbp').innerHTML='<h4>✅ ¡Muy bien!</h4><p>Deine Antwort wurde registriert. Weiter so!</p>';
+    bchk.style.display='none';document.getElementById('bnxt').style.display='block';
+  }
+}
+
+// ─── MULTIPLE CHOICE ─────────────────────
+function selCh(i){
+  selChoice=i;
+  document.querySelectorAll('.cbtn').forEach((b,j)=>{
+    b.style.borderColor=j===i?'var(--cielo)':'';
+    b.style.background=j===i?'#EEF9FD':'';
+  });
+  document.getElementById('bchk').disabled=false;
+}
+
+function ins(c){
+  const inp=document.getElementById('finp');if(!inp)return;
+  const p=inp.selectionStart;
+  inp.value=inp.value.slice(0,p)+c+inp.value.slice(inp.selectionEnd);
+  inp.setSelectionRange(p+1,p+1);inp.focus();
+  document.getElementById('bchk').disabled=false;
+}
+
+// ─── CHECK ───────────────────────────────
+function checkAnswer(){
+  const ex=ses.exs[ses.idx];
+  const fb=document.getElementById('fbp');let ok=false;
+  if(ex.type==='mc'){
+    ok=selChoice===ex.correct;
+    document.querySelectorAll('.cbtn').forEach((b,i)=>{
+      b.disabled=true;
+      if(i===ex.correct)b.classList.add('ok');
+      else if(i===selChoice&&!ok)b.classList.add('bad');
+    });selChoice=-1;
+  } else {
+    const inp=document.getElementById('finp');
+    const ua=norm(inp.value),ca=norm(ex.a||ex.answer||'');
+    ok=ua===ca||ca.split('/').some(p=>norm(p)===ua);
+    inp.disabled=true;inp.classList.add(ok?'ok':'bad');
+  }
+  const xg=ok?10:2;ses.xp+=xg;if(ok)ses.correct++;
+  // Animate XP counter
+  animateXP(document.getElementById('xpind'), ses.xp-xg, ses.xp);
+
+  // ── ADAPTIVE TRACKING ─────────────────────────────
+  trackAnswer(ex, ok);
+  // ──────────────────────────────────────────────────
+
+  if(!ok&&ex.vocab){
+    const ww={...ex.vocab,unit:ses.unitId||0};
+    if(!S.weak_words.find(w=>w.es===ww.es)){S.weak_words.unshift(ww);if(S.weak_words.length>30)S.weak_words.pop();}
+  }
+  fb.className='fbpanel '+(ok?'ok':'bad')+' show';
+  const correctAns=ex.type==='fill'?(ex.a||ex.answer):ex.choices[ex.correct];
+  // Haptic feedback
+  if(navigator.vibrate){navigator.vibrate(ok?[30]:[80,30,80]);}
+  const okMsgs=[
+    ['🦊','¡Perfecto! Das saß!'],['🦉','¡Muy bien! +'+xg+' XP'],
+    ['🦋','¡Excelente! Weiter so!'],['⭐','¡Correcto! Gut gemacht!'],
+    ['🎯','Volltreffer! +'+xg+' XP'],
+  ];
+  const badMsgs=[
+    ['🤔','Fast! Noch einmal merken.'],['🦊','¡Ánimo! Beim nächsten Mal!'],
+    ['📚','Kein Problem — das kommt wieder.'],['💪','¡Sigue! Du schaffst das!'],
+  ];
+  const pick=arr=>arr[Math.floor(Math.random()*arr.length)];
+  const [mic,mtxt]=ok?pick(okMsgs):pick(badMsgs);
+  const correctAnsDisp=ex.type==='fill'?(ex.a||ex.answer):ex.choices[ex.correct];
+  fb.innerHTML=ok
+    ?`<div class="mascot-row"><span class="mascot bounce">${mic}</span><div class="mascot-speech"><h4 style="color:#4ade80">${mtxt}</h4><p>${ex.explain||''}</p></div></div>`
+    :`<div class="mascot-row"><span class="mascot">${mic}</span><div class="mascot-speech"><h4 style="color:#f87171">${mtxt}</h4><p><strong>Richtig:</strong> ${correctAnsDisp}</p>${ex.explain?`<p style="margin-top:.3rem;font-size:.82rem">${ex.explain}</p>`:''}</div></div>`;
+  document.getElementById('bchk').style.display='none';document.getElementById('bnxt').style.display='block';
+}
+
+function norm(s){return s.toLowerCase().trim().replace(/[¿¡]/g,'').replace(/\s+/g,' ').trim();}
+
+function nextEx(){
+  ses.idx++;
+  if(ses.idx>=ses.exs.length)finishSes();
+  else renderEx();
+}
+
+// ─── FINISH ──────────────────────────────
+function finishSes(){
+  const tot=ses.exs.length,acc=Math.round(ses.correct/tot*100);
+  S.xp+=ses.xp;S.exercises_done+=tot;
+  if(ses.unitId!==null){if(!S.unit_progress[ses.unitId])S.unit_progress[ses.unitId]={done:0};S.unit_progress[ses.unitId].done++;}
+
+  // ── LOG SESSION ─────────────────────────────────────
+  logSession(acc, ses.mode);
+  // ────────────────────────────────────────────────────
+
+  // Track mode counts for badges
+  if(!S.mode_counts)S.mode_counts={};
+  S.mode_counts[ses.mode]=(S.mode_counts[ses.mode]||0)+1;
+  // Track perfect rounds
+  if(acc===100){if(!S.perfect_rounds)S.perfect_rounds=0;S.perfect_rounds++;}
+  // Daily goal tracking
+  if(!S.daily){S.daily={date:'',done:0,goal:5};}
+  const today=new Date().toDateString();
+  if(S.daily.date!==today){S.daily.date=today;S.daily.done=0;}
+  S.daily.done+=ses.exs.length;
+  // Update streak
+  updateStreak();
+  // Animate badges
+  checkBadges(true);save();
+  // Confetti if perfect or goal reached
+  const goalJustDone=S.daily.done>=S.daily.goal&&(S.daily.done-ses.exs.length)<S.daily.goal;
+  if(acc===100||goalJustDone)setTimeout(launchConfetti,400);
+  document.getElementById('r-xp').textContent='+'+ses.xp;
+  document.getElementById('r-cor').textContent=ses.correct+'/'+tot;
+  document.getElementById('r-acc').textContent=acc+'%';
+  let ic='⭐',rt='¡Bien hecho!',rs='Weiter so!';
+  if(acc>=90){ic='🏆';rt='¡Perfecto!';rs='Beeindruckend!';}
+  else if(acc>=70){ic='🌟';rt='¡Muy bien!';rs='Gute Leistung!';}
+  else if(acc<40){ic='💪';rt='¡Sigue practicando!';rs='Mit Übung wird es besser.';}
+  document.getElementById('ric').textContent=ic;
+  document.getElementById('rt').textContent=rt;
+  document.getElementById('rsub').textContent=rs;
+
+  // Show personalised tip on result screen
+  const tip = getAdaptiveTip();
+  if(tip){
+    const sub = document.getElementById('rsub');
+    sub.innerHTML = rs + '<br><span style="font-size:.82rem;color:var(--sol);display:block;margin-top:.5rem">💡 ' + tip + '</span>';
+  }
+  showScreen('result');
+}
+
+function playAgain(){
+  if(ses.mode==='unit'&&ses.unitId!==null)startUnit(ses.unitId);
+  else showScreen('home');
+}
+
+function confirmExit(){if(confirm('Übung beenden?'))showScreen('home');}
+
+// ─── BADGES ──────────────────────────────
+const BADGES=[
+  {id:'start',nm:'Erste Schritte',ic:'🐣',c:s=>s.exercises_done>=1},
+  {id:'str3',nm:'3 Tage am Stück',ic:'🔥',c:s=>s.streak>=3},
+  {id:'str7',nm:'Eine ganze Woche',ic:'🌟',c:s=>s.streak>=7},
+  {id:'str14',nm:'Dos semanas',ic:'💫',c:s=>s.streak>=14},
+  {id:'str30',nm:'Un mes',ic:'🌙',c:s=>s.streak>=30},
+  {id:'xp50',nm:'50 XP',ic:'⚡',c:s=>s.xp>=50},
+  {id:'xp100',nm:'100 XP',ic:'💥',c:s=>s.xp>=100},
+  {id:'xp500',nm:'500 XP',ic:'🔋',c:s=>s.xp>=500},
+  {id:'xp1000',nm:'1000 XP',ic:'🏆',c:s=>s.xp>=1000},
+  {id:'xp2500',nm:'2500 XP',ic:'👑',c:s=>s.xp>=2500},
+  {id:'u1',nm:'¡Vamos! (U1)',ic:'🏙️',c:s=>(s.unit_progress[1]?.done||0)>=1},
+  {id:'u3',nm:'Tiempo libre (U3)',ic:'🎸',c:s=>(s.unit_progress[3]?.done||0)>=1},
+  {id:'u5',nm:'En la ciudad (U5)',ic:'🗺️',c:s=>(s.unit_progress[5]?.done||0)>=1},
+  {id:'u8',nm:'Naturaleza (U8)',ic:'🌿',c:s=>(s.unit_progress[8]?.done||0)>=1},
+  {id:'dialog',nm:'Erster Dialog',ic:'💬',c:s=>s.mode_counts?.dialog>=1},
+  {id:'konjug',nm:'Grammatik-Fan',ic:'⚙️',c:s=>s.mode_counts?.konjug>=3},
+  {id:'review',nm:'Fleißig wiederholt',ic:'🔄',c:s=>s.mode_counts?.review>=5},
+  {id:'perfect',nm:'Perfekte Runde',ic:'💎',c:s=>s.perfect_rounds>=1},
+  {id:'quick10',nm:'10 Schnell-Runden',ic:'⚡',c:s=>s.mode_counts?.quick>=10},
+  {id:'vet',nm:'50 Übungen',ic:'🎖️',c:s=>s.exercises_done>=50},
+  {id:'master',nm:'100 Übungen',ic:'🏅',c:s=>s.exercises_done>=100},
+];
+let _pendingToast=[];
+function checkBadges(animate=false){
+  BADGES.forEach(b=>{
+    if(!S.badges.includes(b.id)&&b.c(S)){
+      S.badges.push(b.id);
+      if(animate)_pendingToast.push(b);
+    }
+  });
+  if(animate&&_pendingToast.length)setTimeout(()=>showBadgeToast(_pendingToast.shift()),600);
+}
+
+function showBadgeToast(badge){
+  document.getElementById('bt-icon').textContent=badge.ic;
+  document.getElementById('bt-name').textContent=badge.nm;
+  const t=document.getElementById('badge-toast');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3200);
+  if(_pendingToast.length)setTimeout(()=>showBadgeToast(_pendingToast.shift()),3600);
+}
+
+function renderProfile(){
+  const nm=S.nickname||'Estudiante';
+  document.getElementById('pav').textContent=nm.slice(0,2).toUpperCase();
+  document.getElementById('pnm').textContent=nm;
+  const lv=Math.floor(S.xp/200)+1;
+  const lvls=['Principiante','Aprendiz','Estudiante','Avanzado','Experto','Maestro'];
+  document.getElementById('plvl').textContent=`Level ${lv} — ${lvls[Math.min(lv-1,lvls.length-1)]}`;
+  document.getElementById('ps-xp').textContent=S.xp;
+  document.getElementById('ps-str').textContent=S.streak;
+  document.getElementById('ps-ex').textContent=S.exercises_done;
+  checkBadges();
+  const g=document.getElementById('bgrid');g.innerHTML='';
+  BADGES.forEach(b=>{
+    const earned=S.badges.includes(b.id);
+    const d=document.createElement('div');d.className='bitem'+(earned?'':' locked');
+    d.innerHTML=`<div class="bi">${b.ic}</div><div class="bn">${b.nm}</div>`;g.appendChild(d);
+  });
+  // Render weekly report
+  renderWeeklyReport();
+}
+
+// ══════════════════════════════════════════════════════════════
+//  ADAPTIVE LEARNING ENGINE
+// ══════════════════════════════════════════════════════════════
+
+// ── 1. TRACK EACH ANSWER ─────────────────────────────────────
+function trackAnswer(ex, ok) {
+  const today = new Date().toDateString();
+
+  // Track vocabulary
+  if (ex.vocab) {
+    const key = ex.vocab.es;
+    if (!S.word_stats[key]) S.word_stats[key] = { correct:0, wrong:0, lastSeen:today, weight:1.0 };
+    const ws = S.word_stats[key];
+    if (ok) { ws.correct++; } else { ws.wrong++; }
+    ws.lastSeen = today;
+    // Weight: higher = needs more practice. Decay on correct, boost on wrong.
+    ws.weight = ok
+      ? Math.max(0.2, ws.weight * 0.75)
+      : Math.min(5.0, ws.weight * 1.6 + 0.5);
+  }
+
+  // Track grammar/conjugation topic
+  const topicKey = ses.mode === 'grammar' ? 'grammar_' + (ses.topicId||'mixed')
+                 : ses.mode === 'konjug'  ? 'konjug_'  + (ses.topicId||'mixed')
+                 : null;
+  if (topicKey) {
+    if (!S.topic_stats[topicKey]) S.topic_stats[topicKey] = { correct:0, wrong:0, sessions:0 };
+    if (ok) S.topic_stats[topicKey].correct++;
+    else    S.topic_stats[topicKey].wrong++;
+  }
+
+  // Weekly log
+  const week = getWeekKey();
+  if (!S.weekly_log[week]) S.weekly_log[week] = { correct:0, wrong:0, topics:{} };
+  if (ok) S.weekly_log[week].correct++;
+  else    S.weekly_log[week].wrong++;
+
+  // Track topic in weekly log
+  const logKey = topicKey || (ex.vocab ? 'vocab_u'+(ses.unitId||0) : 'misc');
+  if (!S.weekly_log[week].topics[logKey]) S.weekly_log[week].topics[logKey] = {correct:0,wrong:0};
+  if (ok) S.weekly_log[week].topics[logKey].correct++;
+  else    S.weekly_log[week].topics[logKey].wrong++;
+}
+
+// ── 2. LOG SESSION ───────────────────────────────────────────
+function logSession(acc, mode) {
+  // Collect top errors from this session
+  const errors = ses.exs
+    .filter((ex,i) => ses._results && !ses._results[i])
+    .slice(0,3)
+    .map(ex => ex.vocab ? ex.vocab.es : (ex.q||'').slice(0,30));
+
+  S.session_history.unshift({
+    date: new Date().toLocaleDateString('de-DE'),
+    mode, acc,
+    xp: ses.xp,
+    topErrors: errors,
+  });
+  if (S.session_history.length > 10) S.session_history.pop();
+
+  // Increment topic session counter
+  const topicKey = mode === 'grammar' ? 'grammar_' + (ses.topicId||'mixed')
+                 : mode === 'konjug'  ? 'konjug_'  + (ses.topicId||'mixed')
+                 : null;
+  if (topicKey && S.topic_stats[topicKey]) S.topic_stats[topicKey].sessions++;
+}
+
+// ── 3. GET ADAPTIVE TIP ──────────────────────────────────────
+function getAdaptiveTip() {
+  // Find worst-performing topic
+  let worstTopic = null, worstRate = 1.0;
+  Object.entries(S.topic_stats).forEach(([key, stat]) => {
+    const total = stat.correct + stat.wrong;
+    if (total < 3) return;
+    const rate = stat.correct / total;
+    if (rate < worstRate) { worstRate = rate; worstTopic = key; }
+  });
+
+  // Find most-missed words
+  const hardWords = Object.entries(S.word_stats)
+    .filter(([,s]) => s.wrong > 0)
+    .sort((a,b) => b[1].weight - a[1].weight)
+    .slice(0,3)
+    .map(([w]) => w);
+
+  if (worstTopic && worstRate < 0.6) {
+    const label = getTopicLabel(worstTopic);
+    return `Dein Schwerpunkt: <strong>${label}</strong> — ${Math.round(worstRate*100)}% richtig. Übe das gezielt!`;
+  }
+  if (hardWords.length > 0) {
+    return `Hartnäckige Wörter: <em>${hardWords.join(', ')}</em> — werden dir öfter begegnen.`;
+  }
+  return null;
+}
+
+// ── 4. ERROR PROFILE SUMMARY (for KI dialog) ────────────────
+function getErrorProfileSummary() {
+  const parts = [];
+
+  // Top weak topics
+  const weakTopics = Object.entries(S.topic_stats)
+    .filter(([,s]) => s.correct + s.wrong >= 3)
+    .map(([k,s]) => ({ k, rate: s.correct/(s.correct+s.wrong) }))
+    .filter(t => t.rate < 0.65)
+    .sort((a,b) => a.rate-b.rate)
+    .slice(0,3);
+
+  if (weakTopics.length) {
+    parts.push('Schwache Grammatikthemen: ' + weakTopics.map(t => getTopicLabel(t.k)).join(', '));
+  }
+
+  // Top hard vocab
+  const hardVocab = Object.entries(S.word_stats)
+    .filter(([,s]) => s.weight > 1.5)
+    .sort((a,b) => b[1].weight - a[1].weight)
+    .slice(0,5)
+    .map(([w]) => w);
+
+  if (hardVocab.length) {
+    parts.push('Schwierige Wörter: ' + hardVocab.join(', '));
+  }
+
+  return parts.length ? parts.join('. ') : '';
+}
+
+// ── 5. WEIGHTED VOCAB SELECTION ──────────────────────────────
+function getWeightedVocab(pool, n) {
+  // Build weighted list: higher weight = more copies
+  const weighted = [];
+  pool.forEach(v => {
+    const stat = S.word_stats[v.es];
+    const copies = stat ? Math.max(1, Math.min(4, Math.ceil(stat.weight))) : 1;
+    for (let i = 0; i < copies; i++) weighted.push(v);
+  });
+  shuffle(weighted);
+  // Deduplicate while preserving order
+  const seen = new Set();
+  const result = [];
+  for (const v of weighted) {
+    if (!seen.has(v.es)) { seen.add(v.es); result.push(v); }
+    if (result.length >= n) break;
+  }
+  // Fill up if not enough
+  for (const v of pool) {
+    if (!seen.has(v.es)) { seen.add(v.es); result.push(v); }
+    if (result.length >= n) break;
+  }
+  return result.slice(0, n);
+}
+
+// ── 6. WEEKLY REPORT RENDER ──────────────────────────────────
+function renderWeeklyReport() {
+  // Remove old report if exists
+  const old = document.getElementById('weekly-report');
+  if (old) old.remove();
+
+  const week = getWeekKey();
+  const log = S.weekly_log[week] || { correct:0, wrong:0, topics:{} };
+  const totalAns = log.correct + log.wrong;
+
+  // Build HTML
+  const container = document.createElement('div');
+  container.id = 'weekly-report';
+  container.style.cssText = 'padding:0 1.1rem 1.5rem;';
+
+  const acc = totalAns > 0 ? Math.round(log.correct/totalAns*100) : 0;
+  const bar = totalAns > 0
+    ? `<div style="height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;margin:.5rem 0">
+        <div style="width:${acc}%;height:100%;background:linear-gradient(90deg,var(--naranja),var(--sol));border-radius:4px"></div>
+       </div>` : '';
+
+  // Worst topics this week
+  const topicRows = Object.entries(log.topics)
+    .map(([k,s]) => ({ label: getTopicLabel(k), rate: s.correct/(s.correct+s.wrong||1), total: s.correct+s.wrong }))
+    .filter(t => t.total >= 2)
+    .sort((a,b) => a.rate-b.rate)
+    .slice(0,4);
+
+  const topicHTML = topicRows.map(t => {
+    const pct = Math.round(t.rate*100);
+    const col = pct >= 75 ? '#4ade80' : pct >= 50 ? 'var(--sol)' : '#f87171';
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <span style="font-size:.82rem;color:rgba(255,255,255,.75)">${t.label}</span>
+      <span style="font-size:.82rem;font-weight:700;color:${col}">${pct}%</span>
+    </div>`;
+  }).join('');
+
+  // Hard words list
+  const hardWords = Object.entries(S.word_stats)
+    .filter(([,s]) => s.weight > 1.8 && s.wrong > 0)
+    .sort((a,b) => b[1].weight - a[1].weight)
+    .slice(0,5);
+
+  const hardHTML = hardWords.map(([w,s]) => {
+    // Find German translation
+    let de = '';
+    UNITS.forEach(u => { const found = u.vocab.find(v=>v.es===w); if(found) de=found.de; });
+    const total = s.correct+s.wrong;
+    const pct = Math.round(s.correct/total*100);
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:.35rem 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <div>
+        <span style="font-size:.85rem;font-weight:700;color:var(--sol)">${w}</span>
+        ${de ? `<span style="font-size:.75rem;color:var(--gris);margin-left:.4rem">${de}</span>` : ''}
+      </div>
+      <span style="font-size:.78rem;color:#f87171;font-weight:700">${pct}% ✓</span>
+    </div>`;
+  }).join('');
+
+  container.innerHTML = `
+    <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gris2);margin-bottom:.65rem">
+      📊 Wochenbericht
+    </div>
+    <div style="background:var(--noche3);border-radius:var(--r2);padding:1rem;border:1px solid var(--borde);margin-bottom:.75rem">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-size:1.1rem;font-weight:800;color:var(--sol)">${totalAns} Antworten</div>
+          <div style="font-size:.78rem;color:var(--gris)">diese Woche</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-family:'Playfair Display',serif;font-size:1.8rem;color:${acc>=70?'var(--sol)':'#f87171'}">${acc}%</div>
+          <div style="font-size:.72rem;color:var(--gris)">Genauigkeit</div>
+        </div>
+      </div>
+      ${bar}
+      <div style="display:flex;gap:.5rem;margin-top:.4rem">
+        <span style="font-size:.75rem;color:#4ade80">✅ ${log.correct} richtig</span>
+        <span style="font-size:.75rem;color:#f87171">❌ ${log.wrong} falsch</span>
+      </div>
+    </div>
+    ${topicRows.length ? `
+    <div style="background:var(--noche3);border-radius:var(--r2);padding:1rem;border:1px solid var(--borde);margin-bottom:.75rem">
+      <div style="font-size:.75rem;font-weight:700;color:var(--gris);margin-bottom:.4rem">Themen diese Woche</div>
+      ${topicHTML}
+    </div>` : ''}
+    ${hardWords.length ? `
+    <div style="background:var(--noche3);border-radius:var(--r2);padding:1rem;border:1px solid rgba(248,113,113,.2)">
+      <div style="font-size:.75rem;font-weight:700;color:#f87171;margin-bottom:.4rem">🎯 Deine Schwächen — werden öfter geübt</div>
+      ${hardHTML}
+      <button onclick="startReview()" style="width:100%;margin-top:.75rem;padding:.6rem;border-radius:var(--r);background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.3);color:#f87171;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer">
+        Jetzt gezielt wiederholen →
+      </button>
+    </div>` : ''}
+    ${totalAns === 0 ? '<p style="font-size:.85rem;color:var(--gris);text-align:center">Noch keine Daten — fang einfach an zu üben!</p>' : ''}
+  `;
+
+  // Insert before badges
+  const badgsec = document.querySelector('.badgsec');
+  badgsec.parentNode.insertBefore(container, badgsec);
+}
+
+// ── 7. UPDATE startUnit TO USE WEIGHTED SELECTION ────────────
+const _origStartUnit = startUnit;
+startUnit = function(uid) {
+  const unit = UNITS[uid];
+  let pool = [...unit.vocab];
+  const weak = S.weak_words.filter(w=>w.unit!==uid).slice(0,3);
+  weak.forEach(w => pool.push({...w, review:true}));
+  if (uid > 1) {
+    const prev = UNITS[Math.max(0,uid-2)];
+    prev.vocab.slice(0,3).forEach(w=>pool.push({...w,review:true}));
+  }
+  // Use weighted selection
+  const weighted = getWeightedVocab(pool, 9);
+  ses = { exs: weighted.map(v=>mkVocEx(v,unit)), idx:0, correct:0, xp:0, mode:'unit', unitId:uid, _results:[] };
+  launch();
+};
+
+// ── 8. TRACK RESULTS ARRAY ───────────────────────────────────
+// Patch nextEx to track per-exercise results
+const _origNextEx = nextEx;
+nextEx = function() {
+  // Record result before advancing
+  if (!ses._results) ses._results = [];
+  // The last answer is stored in session state — we check if correct was incremented
+  ses._results.push(undefined); // filled in trackAnswer
+  ses.idx++;
+  if (ses.idx >= ses.exs.length) finishSes();
+  else renderEx();
+};
+
+// ── HELPERS ──────────────────────────────────────────────────
+function getWeekKey() {
+  const d = new Date();
+  const start = new Date(d.getFullYear(), 0, 1);
+  const week = Math.ceil(((d - start) / 86400000 + start.getDay() + 1) / 7);
+  return `${d.getFullYear()}-W${String(week).padStart(2,'0')}`;
+}
+
+function getTopicLabel(key) {
+  const map = {
+    'grammar_ser_estar': 'ser vs. estar',
+    'grammar_gustar': 'gustar/encantar',
+    'grammar_imperativ': 'Imperativ',
+    'grammar_reflexive': 'Reflexivverben',
+    'grammar_komparativ': 'Komparativ',
+    'grammar_indefinido_irreg': 'Indefinido unregelm.',
+    'konjug_presente': 'Presente',
+    'konjug_indefinido': 'Indefinido',
+    'konjug_imperfecto': 'Imperfecto',
+    'konjug_futuro': 'Futur',
+    'konjug_konditional': 'Konditional',
+  };
+  if (map[key]) return map[key];
+  if (key.startsWith('vocab_u')) return 'Wortschatz Unidad ' + key.slice(7);
+  return key.replace(/_/g,' ');
+}
+
+// Store topicId in session when launching grammar/konjug
+const _origStartGrammar = startGrammar;
+startGrammar = function(tid) {
+  _origStartGrammar(tid);
+  ses.topicId = tid;
+};
+
+const _origStartKonjug = startKonjug;
+startKonjug = function(tid) {
+  _origStartKonjug(tid);
+  ses.topicId = tid;
+};
+
+// ─────────────────────────────────────────────────────────────
+
+
+// ══════════════════════════════════════════════════════
+//  V5 FEATURES: WOTD, GOAL, QUICK SESSION, CONFETTI
+// ══════════════════════════════════════════════════════
+
+// ─── WORD OF THE DAY ─────────────────────────────────
+const EXAMPLE_SENTENCES = {
+  'hablar':   'Hablo español todos los días.',
+  'estudiar': 'Estudio en el instituto.',
+  'tener':    'Tengo dos hermanos.',
+  'gustar':   'Me gusta mucho la música.',
+  'ir':       'Voy al cine el sábado.',
+  'hacer':    '¿Qué haces los domingos?',
+  'estar':    'Estoy muy contento hoy.',
+  'ser':      'Soy de Alemania.',
+  'querer':   'Quiero aprender español.',
+  'poder':    'No puedo ir al parque hoy.',
+  'vivir':    'Vivimos cerca del centro.',
+  'trabajar': '¿Dónde trabajas?',
+  'bailar':   'Me encanta bailar salsa.',
+  'comer':    'Comemos en la cafetería.',
+  'escribir': 'Escribo un mensaje a mi amiga.',
+};
+
+function getWotd(){
+  const allVocab=[];
+  UNITS.forEach(u=>u.vocab.forEach(v=>allVocab.push(v)));
+  // Use date as seed for consistent daily word
+  const day=Math.floor(Date.now()/86400000);
+  return allVocab[day%allVocab.length];
+}
+
+function renderWotd(){
+  const w=getWotd();
+  document.getElementById('wotd-es').textContent=w.es;
+  document.getElementById('wotd-de').textContent='→ '+w.de;
+  const ex=EXAMPLE_SENTENCES[w.es.split(' ')[0]];
+  document.getElementById('wotd-ex').textContent=ex?'"'+ex+'"':'';
+}
+
+function startWotd(){
+  // Quick exercise just on the word of the day
+  const w=getWotd();
+  const unit=UNITS.find(u=>u.vocab.find(v=>v.es===w.es))||UNITS[1];
+  const ex1=mkVocEx(w,unit);
+  const ex2=mkVocEx(w,unit);
+  ses={exs:[ex1,ex2],idx:0,correct:0,xp:0,mode:'wotd',unitId:null};
+  launch();
+}
+
+// ─── DAILY GOAL ──────────────────────────────────────
+function renderGoal(){
+  if(!S.daily)S.daily={date:'',done:0,goal:5};
+  const today=new Date().toDateString();
+  if(S.daily.date!==today){S.daily.date=today;S.daily.done=0;}
+  const pct=Math.min(100,Math.round(S.daily.done/S.daily.goal*100));
+  const cur=Math.min(S.daily.done,S.daily.goal);
+  const curEl=document.getElementById('goal-cur');
+  const maxEl=document.getElementById('goal-max');
+  const fillEl=document.getElementById('goal-fill');
+  const pctEl=document.getElementById('goal-pct');
+  const msgEl=document.getElementById('goal-msg');
+  if(curEl)curEl.textContent=cur;
+  if(maxEl)maxEl.textContent=S.daily.goal;
+  if(fillEl)fillEl.style.width=pct+'%';
+  if(pctEl)pctEl.textContent=pct+'%';
+  const msgs=[
+    [0,'Fang heute noch an — auch 3 Fragen zählen!'],
+    [20,'Guter Start! Weiter so.'],
+    [40,'Du bist auf dem richtigen Weg 💪'],
+    [60,'Mehr als die Hälfte geschafft!'],
+    [80,'Fast am Ziel — noch ein bisschen!'],
+    [100,'🎉 ¡Fenomenal! Tagesziel erreicht!'],
+  ];
+  const msg=msgs.reduce((a,m)=>pct>=m[0]?m:a,msgs[0]);
+  if(msgEl)msgEl.textContent=msg[1];
+  const card=document.getElementById('hero-card');
+  if(card){
+    if(pct>=100)card.style.borderColor='rgba(255,183,3,.55)';
+    else card.style.borderColor='';
+  }
+}
+
+// ─── QUICK SESSION (3 Fragen) ────────────────────────
+function startQuick(){
+  let pool=[];
+  UNITS.slice(0,5).forEach(u=>pool=pool.concat(u.vocab.map(v=>({...v,unit:u.id}))));
+  // Weighted: prefer weak words
+  const weighted=[];
+  pool.forEach(v=>{
+    const stat=S.word_stats[v.es];
+    const copies=stat?Math.max(1,Math.min(3,Math.ceil(stat.weight))):1;
+    for(let i=0;i<copies;i++)weighted.push(v);
+  });
+  shuffle(weighted);
+  const seen=new Set();const picks=[];
+  for(const v of weighted){if(!seen.has(v.es)){seen.add(v.es);picks.push(v);}if(picks.length>=3)break;}
+  // First question: always easiest (ES→DE multiple choice, no fill)
+  const exs=picks.map((v,i)=>{
+    const unit=UNITS[v.unit||0];
+    if(i===0){
+      const dist=getDistractors(v.de,3);
+      const ch=shuffle([v.de,...dist]);
+      return{type:'mc',q:v.es,qLabel:'Wie heißt das auf Deutsch?',choices:ch,correct:ch.indexOf(v.de),explain:`${v.es} = ${v.de}`,vocab:v};
+    }
+    return mkVocEx(v,unit);
+  });
+  ses={exs,idx:0,correct:0,xp:0,mode:'quick',unitId:null,_results:[]};
+  launch();
+}
+
+// ─── CONFETTI ────────────────────────────────────────
+function launchConfetti(){
+  const canvas=document.getElementById('confetti-canvas');
+  canvas.style.display='block';
+  canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+  const ctx=canvas.getContext('2d');
+  const pieces=Array.from({length:80},()=>({
+    x:Math.random()*canvas.width,
+    y:-10-Math.random()*80,
+    r:4+Math.random()*5,
+    d:2+Math.random()*3,
+    c:['#FFB703','#FF7D00','#4ade80','#60a5fa','#f87171','#c084fc'][Math.floor(Math.random()*6)],
+    t:Math.random()*Math.PI*2,
+    ts:0.04+Math.random()*0.06,
+    amp:80+Math.random()*80,
+  }));
+  let frame=0;
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pieces.forEach(p=>{
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.c;ctx.fill();
+      p.y+=p.d;p.t+=p.ts;
+      p.x+=Math.sin(p.t)*2.5;
+    });
+    frame++;
+    if(frame<140)requestAnimationFrame(draw);
+    else{ctx.clearRect(0,0,canvas.width,canvas.height);canvas.style.display='none';}
+  }
+  draw();
+}
+
+// ─── EASY FIRST EXERCISE ─────────────────────────────
+// Patch renderEx to make the first question of each session always MC (easier)
+const _v5RenderEx = renderEx;
+renderEx = function() {
+  // Force first exercise to be MC if it's currently fill
+  if(ses.idx===0 && ses.exs[0] && ses.exs[0].type==='fill' && ses.exs[0].vocab){
+    const v=ses.exs[0].vocab;
+    const unit=UNITS[v.unit||ses.unitId||0]||UNITS[0];
+    const dist=getDistractors(v.de,3);
+    const ch=shuffle([v.de,...dist]);
+    ses.exs[0]={...ses.exs[0],type:'mc',choices:ch,correct:ch.indexOf(v.de),qLabel:'Wie heißt das auf Deutsch?',_wasEasy:true};
+  }
+  _v5RenderEx();
+  // Add easy tag if first question
+  if(ses.idx===0&&ses.exs[0]&&ses.exs[0]._wasEasy){
+    const tag=document.createElement('span');
+    tag.className='ex-easy-tag';tag.textContent='Einfacher Einstieg';
+    const qt=document.querySelector('.ex-tag');
+    if(qt)qt.appendChild(tag);
+  }
+};
+
+// ─── UPDATE renderHome to include wotd + goal ────────
+const _v5renderHome=renderHome;
+renderHome=function(){
+  _v5renderHome();
+  renderWotd();
+  renderGoal();
+};
+
+// ─────────────────────────────────────────────────────
+
+// ── XP COUNTER ANIMATION ─────────────────────────────────
+function animateXP(el, from, to){
+  if(!el)return;
+  const dur=400,steps=12,step=(to-from)/steps;
+  let cur=from,t=0;
+  const tick=()=>{
+    cur=Math.min(to,cur+step);
+    el.textContent=Math.round(cur)+' XP';
+    if(cur<to){t++;requestAnimationFrame(tick);}
+  };
+  requestAnimationFrame(tick);
+}
+
+// ── SWIPE BETWEEN EXERCISES (touch) ──────────────────────
+let _touchStartX=0;
+document.addEventListener('touchstart',e=>{_touchStartX=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-_touchStartX;
+  // Swipe left on exercise screen = next (only after answer checked)
+  if(dx<-60&&document.getElementById('screen-exercise').classList.contains('active')){
+    const bnxt=document.getElementById('bnxt');
+    if(bnxt&&bnxt.style.display!=='none')nextEx();
+  }
+},{passive:true});
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+</script>
+<div id="badge-toast">
+  <span class="bt-icon" id="bt-icon">🏆</span>
+  <div>
+    <div class="bt-title">Abzeichen freigeschaltet!</div>
+    <div id="bt-name">—</div>
+  </div>
+</div>
+<canvas id="confetti-canvas"></canvas>
+</body>
+</html>
